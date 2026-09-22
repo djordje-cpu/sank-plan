@@ -1,0 +1,117 @@
+/*
+ * Šank design tokens as CSS custom properties.
+ * Mirror of src/tokens.ts — test/tokens.test.ts fails if they drift.
+ *
+ * Theme switching, exactly as the prototypes do it:
+ *   - default: light
+ *   - `prefers-color-scheme: dark` unless <html data-theme="light">
+ *   - <html data-theme="dark"> forces dark
+ */
+
+:root {
+  --sank-paper: #f3efe6;
+  --sank-surface: #ffffff;
+  --sank-surface-2: #faf8f3;
+  --sank-line: #e3ddd0;
+  --sank-line-strong: #9a9488;
+  --sank-ink: #1b201d;
+  --sank-ink-2: #555c57;
+  --sank-night: #171a15;
+  --sank-night-2: #242920;
+  --sank-on-night: #f3efe6;
+  --sank-accent: #a33a1f;
+  --sank-accent-tint: #f6e3db;
+  --sank-on-accent-tint: #a33a1f;
+  --sank-on-accent: #ffffff;
+  --sank-green: #2c6446;
+  --sank-green-tint: #e1eee5;
+  --sank-on-green-tint: #2c6446;
+  --sank-ochre: #7a4f08;
+  --sank-ochre-tint: #f6ebd3;
+  --sank-on-ochre-tint: #7a4f08;
+  --sank-blue: #1f5f7a;
+  --sank-blue-tint: #ddebf1;
+  --sank-on-blue-tint: #1f5f7a;
+  --sank-purple: #6b3fa0;
+  --sank-purple-tint: #e8dff3;
+  --sank-on-purple-tint: #6b3fa0;
+
+  --sank-shadow: 0 1px 2px rgba(27, 32, 29, 0.06), 0 8px 24px rgba(27, 32, 29, 0.08);
+
+  --sank-font-display: "Fraunces", Georgia, serif;
+  --sank-font-sans: "IBM Plex Sans", "Helvetica Neue", sans-serif;
+  --sank-font-mono: "IBM Plex Mono", "SFMono-Regular", Menlo, monospace;
+
+  --sank-radius-sm: 8px;
+  --sank-radius-md: 12px;
+  --sank-radius-pill: 999px;
+
+  --sank-size-touch: 44px;
+  --sank-size-chip: 24px;
+
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --sank-paper: #131210;
+    --sank-surface: #1f1c17;
+    --sank-surface-2: #191611;
+    --sank-line: #37332b;
+    --sank-line-strong: #6a655b;
+    --sank-ink: #f3efe6;
+    --sank-ink-2: #b7b2a6;
+    --sank-night: #0c0b09;
+    --sank-night-2: #1a1712;
+    --sank-on-night: #f3efe6;
+    --sank-accent: #a33a1f;
+    --sank-accent-tint: #3a241d;
+    --sank-on-accent-tint: #f0a38b;
+    --sank-on-accent: #ffffff;
+    --sank-green: #2c6446;
+    --sank-green-tint: #1c2f22;
+    --sank-on-green-tint: #8fcba6;
+    --sank-ochre: #7a4f08;
+    --sank-ochre-tint: #332810;
+    --sank-on-ochre-tint: #e0b25a;
+    --sank-blue: #1f5f7a;
+    --sank-blue-tint: #17262b;
+    --sank-on-blue-tint: #8fc3db;
+    --sank-purple: #6b3fa0;
+    --sank-purple-tint: #2a1f3a;
+    --sank-on-purple-tint: #c9aeeb;
+    --sank-shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 8px 24px rgba(0, 0, 0, 0.35);
+    color-scheme: dark;
+  }
+}
+
+:root[data-theme="dark"] {
+  --sank-paper: #131210;
+  --sank-surface: #1f1c17;
+  --sank-surface-2: #191611;
+  --sank-line: #37332b;
+  --sank-line-strong: #6a655b;
+  --sank-ink: #f3efe6;
+  --sank-ink-2: #b7b2a6;
+  --sank-night: #0c0b09;
+  --sank-night-2: #1a1712;
+  --sank-on-night: #f3efe6;
+  --sank-accent: #a33a1f;
+  --sank-accent-tint: #3a241d;
+  --sank-on-accent-tint: #f0a38b;
+  --sank-on-accent: #ffffff;
+  --sank-green: #2c6446;
+  --sank-green-tint: #1c2f22;
+  --sank-on-green-tint: #8fcba6;
+  --sank-ochre: #7a4f08;
+  --sank-ochre-tint: #332810;
+  --sank-on-ochre-tint: #e0b25a;
+  --sank-blue: #1f5f7a;
+  --sank-blue-tint: #17262b;
+  --sank-on-blue-tint: #8fc3db;
+  --sank-purple: #6b3fa0;
+  --sank-purple-tint: #2a1f3a;
+  --sank-on-purple-tint: #c9aeeb;
+  --sank-shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 8px 24px rgba(0, 0, 0, 0.35);
+  color-scheme: dark;
+}

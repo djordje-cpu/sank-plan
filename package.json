@@ -17,7 +17,9 @@
     "lint:fix": "eslint . --fix",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "check": "pnpm lint && pnpm format:check && pnpm typecheck && pnpm test && pnpm build"
+    "check": "pnpm lint && pnpm format:check && pnpm typecheck && pnpm test && pnpm build && pnpm build:storybook",
+    "storybook": "pnpm --filter @sank/ui storybook",
+    "build:storybook": "pnpm --filter @sank/ui build:storybook"
   },
   "devDependencies": {
     "@eslint/js": "catalog:",

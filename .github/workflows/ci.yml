@@ -41,3 +41,6 @@ jobs:
 
       - name: Build
         run: pnpm build
+
+      - name: Build Storybook (packages/ui)
+        run: pnpm --filter @sank/ui build:storybook

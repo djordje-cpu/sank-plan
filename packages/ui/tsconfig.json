@@ -3,7 +3,16 @@
   "compilerOptions": {
     "rootDir": ".",
     "outDir": "dist",
-    "types": ["node"]
+    "types": ["node"],
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "jsx": "react-jsx"
   },
-  "include": ["src", "test"]
+  "include": [
+    "src",
+    "test",
+    "stories",
+    "vite.config.ts",
+    ".storybook/main.ts",
+    ".storybook/preview.ts"
+  ]
 }

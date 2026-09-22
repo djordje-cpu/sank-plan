@@ -152,7 +152,7 @@ Ažurira se na kraju svakog paketa (CLAUDE.md → Working style).
 | Paket | Status | Datum | Beleška |
 |---|---|---|---|
 | P0.1 | ✅ gotovo | 2026-09-22 | 14 radnih prostora, TS strict, ESLint 10, Prettier, CI; `pnpm check` zelen. ADR 0001. |
-| P0.2 | ⬜ nije počet | | |
+| P0.2 | ✅ gotovo | 2026-09-22 | `@sank/ui`: tokeni, Tailwind tema, 6 komponenti, Storybook svetla/tamna, 150+ testova (kontrast, 44 px, bez proizvoljnih boja). ADR 0002. |
 | P0.3 | ⬜ nije počet | | |
 | P0.4 | ⬜ nije počet | | |
 | P0.5 | ⬜ nije počet | | |

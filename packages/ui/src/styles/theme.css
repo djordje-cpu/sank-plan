@@ -1,0 +1,80 @@
+/*
+ * Tailwind theme for every Šank app. Import once per app:
+ *   @import "@sank/ui/theme.css";
+ *
+ * CLAUDE.md: "Tailwind with tokens from packages/ui only (no arbitrary colors)".
+ * The default Tailwind palette and font stacks are wiped so the only color
+ * utilities that exist are the ones below (bg-paper, text-ink, border-line …).
+ * `@theme inline` emits var(--sank-*) into the utilities, so data-theme and
+ * prefers-color-scheme switching in tokens.css keeps working at runtime.
+ */
+
+@import "tailwindcss";
+@import "./tokens.css";
+
+/* Let consumers' Tailwind see the classes used inside this package. */
+@source "../components";
+
+@theme {
+  --color-*: initial;
+  --font-*: initial;
+  --shadow-*: initial;
+}
+
+@theme inline {
+  --color-paper: var(--sank-paper);
+  --color-surface: var(--sank-surface);
+  --color-surface-2: var(--sank-surface-2);
+  --color-line: var(--sank-line);
+  --color-line-strong: var(--sank-line-strong);
+  --color-ink: var(--sank-ink);
+  --color-ink-2: var(--sank-ink-2);
+  --color-night: var(--sank-night);
+  --color-night-2: var(--sank-night-2);
+  --color-on-night: var(--sank-on-night);
+  --color-accent: var(--sank-accent);
+  --color-accent-tint: var(--sank-accent-tint);
+  --color-on-accent-tint: var(--sank-on-accent-tint);
+  --color-on-accent: var(--sank-on-accent);
+  --color-green: var(--sank-green);
+  --color-green-tint: var(--sank-green-tint);
+  --color-on-green-tint: var(--sank-on-green-tint);
+  --color-ochre: var(--sank-ochre);
+  --color-ochre-tint: var(--sank-ochre-tint);
+  --color-on-ochre-tint: var(--sank-on-ochre-tint);
+  --color-blue: var(--sank-blue);
+  --color-blue-tint: var(--sank-blue-tint);
+  --color-on-blue-tint: var(--sank-on-blue-tint);
+  --color-purple: var(--sank-purple);
+  --color-purple-tint: var(--sank-purple-tint);
+  --color-on-purple-tint: var(--sank-on-purple-tint);
+  --color-transparent: transparent;
+  --color-current: currentColor;
+
+  --font-display: var(--sank-font-display);
+  --font-sans: var(--sank-font-sans);
+  --font-mono: var(--sank-font-mono);
+
+  --radius-sm: var(--sank-radius-sm);
+  --radius-md: var(--sank-radius-md);
+  --radius-pill: var(--sank-radius-pill);
+
+  --spacing-touch: var(--sank-size-touch);
+  --spacing-chip: var(--sank-size-chip);
+
+  --shadow-card: var(--sank-shadow);
+}
+
+@layer base {
+  html {
+    font-family: var(--sank-font-sans);
+    color: var(--sank-ink);
+    background: var(--sank-paper);
+    -webkit-font-smoothing: antialiased;
+  }
+  body {
+    margin: 0;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+}
