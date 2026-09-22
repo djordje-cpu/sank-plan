@@ -1,0 +1,673 @@
+<!doctype html>
+<html lang="sr-Latn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Normativ — marža koju SEF i ESIR već znaju</title>
+<meta name="description" content="Normativ čita SEF fakture i ESIR prodaju i svake nedelje pokazuje gde restoran gubi na normativima, cenama dobavljača i meniju.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+:root{
+ --paper:#F3EFE6; --surf:#FFFFFF; --surf2:#FAF8F3; --line:#E3DDD0;
+ --ink:#1B201D; --ink2:#555C57; --night:#1B201D; --night2:#2A312D;
+ --accent:#A33A1F; --accent-tint:#F6E3DB;
+ --green:#2C6446; --green-tint:#E1EEE5;
+ --ochre:#7A4F08; --ochre-tint:#F6EBD3;
+ --blue:#1F5F7A; --blue-tint:#DDEBF1;
+ --shadow:0 1px 2px rgba(27,32,29,.06), 0 8px 24px rgba(27,32,29,.06);
+}
+@media (prefers-color-scheme: dark){
+ :root:not([data-theme="light"]){
+  --paper:#15130F; --surf:#211E19; --surf2:#1A1712; --line:#39352D;
+  --ink:#F3EFE6; --ink2:#B7B2A6; --night:#0E0D0B; --night2:#1D1A15;
+  --accent-tint:#3A241D; --green-tint:#1C2F22; --ochre-tint:#332810; --blue-tint:#17262B;
+  --shadow:0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.35);
+ }
+}
+:root[data-theme="dark"]{
+ --paper:#15130F; --surf:#211E19; --surf2:#1A1712; --line:#39352D;
+ --ink:#F3EFE6; --ink2:#B7B2A6; --night:#0E0D0B; --night2:#1D1A15;
+ --accent-tint:#3A241D; --green-tint:#1C2F22; --ochre-tint:#332810; --blue-tint:#17262B;
+ --shadow:0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.35);
+}
+*{box-sizing:border-box}
+html{scroll-padding-top:calc(72px + env(safe-area-inset-top,0px))}
+body{margin:0;font-family:'IBM Plex Sans', 'Helvetica Neue', sans-serif;color:var(--ink);background:var(--paper);
+ padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+a{color:var(--accent)}
+.wrap{max-width:1180px;margin:0 auto;padding:0 28px}
+.muted{color:var(--ink2)}
+.small{font-size:13px}
+.ink{color:var(--ink)}
+.warn-tx{color:var(--accent);font-weight:600}
+.ok-tx{color:var(--green)}
+.c-mono{font-family:'IBM Plex Mono', 'SFMono-Regular', Menlo, monospace}
+
+/* ---- top nav (site) ---- */
+.sitebar{position:sticky;top:0;z-index:30;background:color-mix(in srgb, var(--paper) 92%, transparent);
+ backdrop-filter:blur(8px);border-bottom:1px solid var(--line);padding-top:env(safe-area-inset-top,0px)}
+.sitebar-in{max-width:1180px;margin:0 auto;padding:14px 28px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.brand{display:flex;align-items:baseline;gap:10px;text-decoration:none;color:var(--ink)}
+.brand b{font-family:'Fraunces', Georgia, serif;font-size:22px;font-weight:600;letter-spacing:-.01em}
+.brand span{font-size:13px;color:var(--ink2)}
+.sitelinks{display:flex;gap:22px;align-items:center}
+.sitelinks a{color:var(--ink2);text-decoration:none;font-size:14px;font-weight:500}
+.sitelinks a:hover{color:var(--ink)}
+.swatches{display:flex;gap:6px;align-items:center;margin-left:6px}
+.swatch{width:18px;height:18px;border-radius:9px;border:2px solid var(--surf);box-shadow:0 0 0 1px var(--line);cursor:pointer;padding:0}
+.swatch.active{box-shadow:0 0 0 2px var(--ink)}
+.themebtn{border:1px solid var(--line);background:var(--surf);color:var(--ink);border-radius:8px;height:34px;width:34px;
+ display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:15px}
+
+/* ---- hero ---- */
+.hero{padding:76px 0 56px}
+.hero-kicker{font-size:13px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
+.hero h1{font-family:'Fraunces', Georgia, serif;font-size:clamp(34px,5vw,58px);line-height:1.05;font-weight:600;letter-spacing:-.02em;margin:14px 0 20px;max-width:820px}
+.hero p.lead{font-size:19px;line-height:1.55;color:var(--ink2);max-width:640px;margin:0 0 28px}
+.hero-cta{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:44px}
+.proof{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1px;background:var(--line);
+ border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.proof-cell{background:var(--surf);padding:22px 24px;display:flex;flex-direction:column;gap:4px}
+.proof-num{font-family:'Fraunces', Georgia, serif;font-size:28px;font-weight:600;letter-spacing:-.01em}
+.proof-lbl{font-size:13px;color:var(--ink2);line-height:1.4}
+
+/* ---- how it works ---- */
+.how{padding:56px 0}
+.how h2{font-family:'Fraunces', Georgia, serif;font-size:30px;font-weight:600;margin:0 0 10px}
+.how-sub{color:var(--ink2);font-size:16px;max-width:600px;margin:0 0 34px}
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:20px}
+.step{background:var(--surf);border:1px solid var(--line);border-radius:12px;padding:22px}
+.step-n{font-family:'Fraunces', Georgia, serif;font-size:14px;color:var(--accent);font-weight:600;margin-bottom:10px}
+.step h4{margin:0 0 8px;font-size:16px}
+.step p{margin:0;font-size:14px;color:var(--ink2);line-height:1.5}
+
+/* ---- app shell ---- */
+.appshell{padding:8px 0 80px}
+.app-frame{background:var(--night);border-radius:18px;overflow:hidden;box-shadow:var(--shadow);display:flex;min-height:760px}
+.rail{width:220px;flex-shrink:0;background:var(--night);display:flex;flex-direction:column;padding:22px 12px;gap:8px}
+.rail-head{padding:0 10px 18px;color:#fff}
+.rail-head b{font-family:'Fraunces', Georgia, serif;font-size:19px;font-weight:600}
+.rail-head div{font-size:12px;color:#B7B2A6;margin-top:2px}
+.navitem{display:flex;align-items:center;gap:10px;height:42px;padding:0 12px;border-radius:8px;border:none;
+ background:transparent;color:#C9C4B8;font-family:'IBM Plex Sans', 'Helvetica Neue', sans-serif;font-size:14px;font-weight:500;cursor:pointer;text-align:left}
+.navitem .nav-ic{font-size:15px;width:18px;text-align:center}
+.navitem.active{background:var(--night2);color:#fff;font-weight:600}
+.navitem:hover:not(.active){color:#fff}
+.rail-foot{margin-top:auto;padding:12px 12px;border-radius:10px;background:var(--night2);color:#E7E2D6;font-size:12px;display:flex;flex-direction:column;gap:6px}
+.dot-online{width:8px;height:8px;border-radius:4px;background:#6FBF8E;display:inline-block;margin-right:6px}
+.appmain{flex-grow:1;background:var(--paper);padding:32px 36px;overflow-x:auto;min-width:0}
+.view{display:none;flex-direction:column;gap:22px}
+.view.active{display:flex}
+.view-head{display:flex;justify-content:space-between;align-items:flex-end;gap:20px;flex-wrap:wrap}
+.view-head h2{font-family:'Fraunces', Georgia, serif;font-size:30px;font-weight:600;letter-spacing:-.015em;margin:6px 0 4px}
+.kicker{font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink2)}
+.head-right{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.lede{font-family:'Fraunces', Georgia, serif;font-size:19px;line-height:1.45;font-weight:500;max-width:820px;margin:0}
+
+.chip{display:inline-flex;align-items:center;height:24px;padding:0 10px;border-radius:12px;font-size:12px;font-weight:600;white-space:nowrap;background:var(--surf2);color:var(--ink2);border:1px solid var(--line)}
+.chip.demo{background:var(--ochre-tint);color:var(--ochre);border-color:transparent}
+.chip.warn,.chip.urgent{background:var(--accent);color:#fff;border-color:transparent}
+.chip.ok{background:var(--green-tint);color:var(--green);border-color:transparent}
+.chip.up{background:var(--accent);color:#fff;border-color:transparent}
+.chip.info{background:var(--ochre-tint);color:var(--ochre);border-color:transparent}
+.chip.star{background:var(--green-tint);color:var(--green);border-color:transparent}
+.chip.workhorse{background:var(--blue-tint);color:var(--blue);border-color:transparent}
+.chip.puzzle{background:var(--ochre-tint);color:var(--ochre);border-color:transparent}
+.chip.dog{background:var(--accent-tint);color:#7E2B16;border-color:transparent}
+
+.btn{height:42px;padding:0 16px;border-radius:8px;border:1px solid #9A9488;background:var(--surf);color:var(--ink);font-family:'IBM Plex Sans', 'Helvetica Neue', sans-serif;font-size:14px;font-weight:500;cursor:pointer}
+.btn.primary{background:var(--accent);color:#fff;border:none;font-weight:600}
+.btn-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:4px}
+
+.card{background:var(--surf);border:1px solid var(--line);border-radius:12px;padding:22px;display:flex;flex-direction:column;gap:14px}
+.card.grow{flex-grow:1;min-width:340px}
+.card.w-fixed{flex:0 0 420px;min-width:300px}
+.card.ok-card{background:var(--green-tint);border-color:color-mix(in srgb, var(--green) 30%, var(--line))}
+.h2-wrap h3{margin:0;font-family:'Fraunces', Georgia, serif;font-size:20px;font-weight:600;letter-spacing:-.01em}
+.h2-sub{margin:4px 0 0;font-size:13px;color:var(--ink2)}
+.h2-row{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;flex-wrap:wrap}
+
+.two-col{display:flex;gap:16px;flex-wrap:wrap;align-items:stretch}
+.two-col.even .card{flex:1 1 300px}
+.stack{display:flex;flex-direction:column;gap:16px;flex-grow:1;min-width:320px}
+.kpi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
+.kpi{background:var(--surf);border:1px solid var(--line);border-radius:12px;padding:18px 20px;display:flex;flex-direction:column;gap:6px}
+.kpi-label{font-size:13px;color:var(--ink2)}
+.kpi-val{font-family:'Fraunces', Georgia, serif;font-size:30px;font-weight:600;letter-spacing:-.01em}
+.kpi-unit{font-size:13px;font-weight:400;color:var(--ink2);margin-left:5px}
+.kpi-note{font-size:13px;color:var(--ink2);font-weight:500}
+.kpi-note.warn{color:var(--accent)}
+
+.table{display:flex;flex-direction:column;overflow-x:auto}
+.row{display:grid;gap:12px;align-items:center;padding:11px 0;border-top:1px solid var(--line);min-width:560px;font-size:14px}
+.row.head{border-top:none;padding-bottom:8px}
+.row-var{grid-template-columns:1.7fr .8fr .8fr .7fr .5fr 1.3fr}
+.row-inv{grid-template-columns:1.6fr 1.3fr 1fr .8fr .8fr .8fr}
+.row-inv.flag{background:var(--ochre-tint);margin:0 -22px;padding:13px 22px;border-radius:0}
+.row-norm{grid-template-columns:1.6fr .8fr 1fr .8fr .8fr .8fr}
+.row-norm.total{border-top:2px solid var(--ink);font-weight:600;padding-top:14px}
+.row-norm.sub{border-top:none;padding-top:2px}
+.row-menu{grid-template-columns:1.6fr 1.1fr .6fr .6fr .6fr}
+.row-acc{grid-template-columns:1.8fr .8fr .9fr 1fr 1.2fr .8fr .6fr}
+.a-title{font-weight:500}
+.bar-cell{display:flex;align-items:center;gap:10px}
+.bar-track{flex-grow:1;height:8px;border-radius:4px;background:var(--accent-tint)}
+.bar-track.sm{height:6px;width:80px;flex-grow:0;background:var(--line)}
+.bar-fill{height:100%;border-radius:4px;background:var(--accent)}
+.bar-fill.ok{background:var(--green)}
+.bar-fill.warn{background:var(--accent)}
+
+.drow{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:11px 0;border-top:1px solid var(--line)}
+.d-name{font-size:14px;font-weight:500}
+.d-right{display:flex;align-items:center;gap:12px}
+
+.arow{display:grid;grid-template-columns:32px 96px 1fr 150px;gap:16px;align-items:center;padding:12px 0;border-top:1px solid var(--line)}
+.a-num{font-family:'Fraunces', Georgia, serif;font-size:20px;font-weight:600;color:var(--ink2)}
+.a-val{text-align:right}
+
+.inv-list{width:100%;max-width:340px;display:flex;flex-direction:column;gap:10px}
+.kicker-s{font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;padding:0 4px}
+.inv-card{display:flex;flex-direction:column;gap:6px;padding:14px 16px;border-radius:10px;text-align:left;
+ background:transparent;border:1px solid var(--line);cursor:pointer;font-family:'IBM Plex Sans', 'Helvetica Neue', sans-serif;color:var(--ink)}
+.inv-card.on{background:var(--surf);border-color:#9A9488}
+.inv-top{display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:15px;font-weight:600}
+.inv-mid,.inv-bot{display:flex;justify-content:space-between}
+.fakture-grid{display:flex;gap:20px;flex-wrap:wrap}
+.inv-detail{flex-grow:1;min-width:340px;display:flex;flex-direction:column;gap:16px}
+.inv-head{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap}
+.pending{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:16px 22px;margin:0 -22px;background:var(--ochre-tint);font-size:14px;flex-wrap:wrap}
+.pending-btns{display:flex;gap:10px}
+
+.chart-svg{width:100%;height:auto}
+.gridline{stroke:var(--line);stroke-width:1}
+.axis{stroke:#9A9488;stroke-width:1}
+.qline{stroke:var(--ink2);stroke-width:1;stroke-dasharray:4 4}
+.axis-lbl{font-size:11px;fill:var(--ink2);font-family:'IBM Plex Mono', 'SFMono-Regular', Menlo, monospace}
+.axis-lbl.sans{font-family:'IBM Plex Sans', 'Helvetica Neue', sans-serif}
+.axis-cap{font-size:12px;fill:var(--ink2);font-family:'IBM Plex Sans', 'Helvetica Neue', sans-serif}
+.target-line{stroke:var(--green);stroke-width:1.5;stroke-dasharray:5 4}
+.target-lbl{fill:var(--green);font-weight:600}
+.line-main{fill:none;stroke:var(--ink);stroke-width:2}
+.line-warn{stroke:var(--accent);stroke-width:2}
+.dot{fill:var(--ink)}
+.dot-warn{fill:var(--accent)}
+.warn-lbl{fill:var(--accent);font-weight:600}
+.quad-hi{fill:var(--green-tint)}
+.quad-lbl{font-size:11px;letter-spacing:1.2px;fill:var(--ink2);font-family:'IBM Plex Sans', 'Helvetica Neue', sans-serif;font-weight:600}
+.pt-lbl{font-size:13px;fill:var(--ink);font-family:'IBM Plex Sans', 'Helvetica Neue', sans-serif;font-weight:500}
+.pt{fill:var(--ink2)}
+.pt.star{fill:var(--green)}
+.pt.workhorse{fill:var(--blue)}
+.pt.puzzle{fill:var(--ochre)}
+.pt.dog{fill:var(--accent)}
+
+.price-block{text-align:right}
+.price{font-family:'Fraunces', Georgia, serif;font-size:28px;font-weight:600}
+.reprow{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 0;border-top:1px solid var(--line)}
+.rep-right{text-align:right}
+.kgrid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.kcard{background:var(--surf2);border:1px solid var(--line);border-radius:8px;padding:12px;display:flex;flex-direction:column;gap:4px}
+.knum{font-family:'Fraunces', Georgia, serif;font-size:22px;font-weight:600}
+.acc-link{text-align:right;font-weight:600;font-size:14px;color:var(--accent)}
+
+.footer{border-top:1px solid var(--line);padding:36px 0 calc(36px + env(safe-area-inset-bottom,0px))}
+.footer p{color:var(--ink2);font-size:13px;line-height:1.6;max-width:720px;margin:0 0 8px}
+.footer a{color:var(--ink2);text-decoration:underline}
+
+/* ---- mobile ---- */
+@media (max-width:860px){
+ .sitelinks a.desktop-only{display:none}
+ .app-frame{flex-direction:column;border-radius:14px}
+ .rail{width:100%;flex-direction:row;overflow-x:auto;padding:12px;gap:6px}
+ .rail-head,.rail-foot{display:none}
+ .navitem{flex-shrink:0}
+ .appmain{padding:22px 18px}
+ .hero{padding:52px 0 40px}
+ .card.w-fixed{flex-basis:100%}
+ .wrap{padding:0 18px}
+}
+</style>
+</head>
+<body>
+
+<div class="sitebar">
+<div class="sitebar-in">
+<a class="brand" href="#top"><b>Normativ</b><span>od SEF fakture do marže</span></a>
+<div class="sitelinks">
+<a class="desktop-only" href="#kako">Kako radi</a>
+<a class="desktop-only" href="#demo">Proizvod</a>
+<a class="desktop-only" href="#kontakt">Kontakt</a>
+<div class="swatches" aria-label="Boja naglaska">
+<button class="swatch active" data-i="a" data-color="#A33A1F" data-tint="#F6E3DB" style="background:#A33A1F" aria-label="Paprika"></button>
+<button class="swatch" data-i="b" data-color="#1F5F7A" data-tint="#DDEBF1" style="background:#1F5F7A" aria-label="Plava"></button>
+<button class="swatch" data-i="c" data-color="#6B3FA0" data-tint="#E6DCF2" style="background:#6B3FA0" aria-label="Ljubičasta"></button>
+</div>
+<button class="themebtn" id="themeToggle" aria-label="Promeni temu">◐</button>
+</div>
+</div>
+</div>
+
+<a id="top"></a>
+<div class="wrap hero">
+<div class="hero-kicker">Za restorane, kafane i lance u Srbiji</div>
+<h1>Marža koju SEF i ESIR već znaju — samo je niko nije pročitao.</h1>
+<p class="lead">Normativ svake nedelje uparuje vaše ulazne fakture iz SEF-a sa prodajom iz fiskalne kase i pokaže tačno gde
+robe curi iznad dozvoljenog kala, koje cene dobavljača rastu i koje jelo treba prvo popraviti.</p>
+<div class="hero-cta">
+<button class="btn primary" onclick="document.getElementById('demo').scrollIntoView({behavior:'smooth'})">Pogledaj demo ispod</button>
+<a class="btn" href="#kontakt" style="text-decoration:none;display:inline-flex;align-items:center">Zakaži pilot</a>
+</div>
+<div class="proof">
+<div class="proof-cell"><div class="proof-num">608 €</div><div class="proof-lbl">medijalna mesečna korist po restoranu, iz sopstvenog curenja iznad kala</div></div>
+<div class="proof-cell"><div class="proof-num">5.908</div><div class="proof-lbl">restorana u Srbiji koji vode PDV i već su u SEF sistemu</div></div>
+<div class="proof-cell"><div class="proof-num">~55 €/mes.</div><div class="proof-lbl">okvirna cena, oko desetine onoga što se vrati</div></div>
+</div>
+</div>
+
+<div class="wrap how" id="kako">
+<h2>Ne unosi se ništa ručno</h2>
+<p class="how-sub">Država je već digitalizovala obe strane vaše marže. Normativ samo spaja ono što već postoji.</p>
+<div class="steps">
+<div class="step"><div class="step-n">01</div><h4>Fakture iz SEF-a</h4><p>Svaka ulazna faktura od dobavljača stiže automatski, sa cenom i količinom po stavci.</p></div>
+<div class="step"><div class="step-n">02</div><h4>Uparivanje sa normativom</h4><p>Tekst sa fakture se prepoznaje i vezuje za pravu namirnicu, čak i kad se dobavljač ne drži jednog naziva.</p></div>
+<div class="step"><div class="step-n">03</div><h4>Prodaja iz ESIR-a</h4><p>Prodati artikli se množe normativima i daju koliko je robe trebalo da se potroši.</p></div>
+<div class="step"><div class="step-n">04</div><h4>Popis i razlika</h4><p>Kratak nedeljni popis ključnih namirnica pokazuje stvarni utrošak, van dozvoljenog kala.</p></div>
+<div class="step"><div class="step-n">05</div><h4>Akcije, ne samo brojevi</h4><p>Svake nedelje: tri konkretne stvari za kuhinju, šank i cenovnik, rangirane po efektu u dinarima.</p></div>
+</div>
+</div>
+
+<div class="wrap appshell" id="demo">
+<div class="app-frame">
+<div class="rail">
+<div class="rail-head"><b>Normativ</b><div>Restoran Primer · Vračar</div></div>
+<button class="navitem active" data-view="pregled"><span class="nav-ic">📊</span>Pregled</button><button class="navitem" data-view="fakture"><span class="nav-ic">🧾</span>SEF fakture</button><button class="navitem" data-view="normativ"><span class="nav-ic">📋</span>Normativi</button><button class="navitem" data-view="meni"><span class="nav-ic">🍽️</span>Analiza menija</button><button class="navitem" data-view="knjigovodja"><span class="nav-ic">🗂️</span>Za knjigovođe</button>
+<div class="rail-foot"><div><span class="dot-online"></span>SEF i ESIR povezani</div><div style="color:#B7B2A6">Sinhronizovano 21.09. u 06:00</div></div>
+</div>
+<div class="appmain">
+<section class="view active" id="view-pregled"><div class="view-head"><div><div class="kicker">Nedeljni pregled</div><h2>Nedelja 38</h2>
+<div class="muted">14–20. septembar 2026 · poslednja SEF faktura 20.09. u 17:42</div></div>
+<div class="head-right"><span class="chip demo">Demo podaci</span><button class="btn">Izvezi PDF</button></div></div>
+<p class="lede">Prošle nedelje je iznad dozvoljenog kala otišlo 15.594 RSD robe, 1,8% neto prometa. Najviše na šanku i kod kajmaka.</p>
+<div class="kpi-grid"><div class="kpi"><div class="kpi-label">Neto promet</div><div class="kpi-val">859.958<span class="kpi-unit">RSD</span></div><div class="kpi-note ">bruto 1.031.950 RSD sa PDV-om</div></div><div class="kpi"><div class="kpi-label">Trošak robe po normativu</div><div class="kpi-val">30,5%<span class="kpi-unit"></span></div><div class="kpi-note ">koliko je trebalo da se potroši</div></div><div class="kpi"><div class="kpi-label">Stvarni trošak robe</div><div class="kpi-val">32,9%<span class="kpi-unit"></span></div><div class="kpi-note warn">+2,4 p.p. iznad normativa</div></div><div class="kpi"><div class="kpi-label">Iznad dozvoljenog kala</div><div class="kpi-val">15.594<span class="kpi-unit">RSD</span></div><div class="kpi-note warn">≈ 577 € mesečno</div></div></div>
+<div class="two-col"><div class="card grow"><div class="h2-wrap"><h3>Gde curi</h3><p class="h2-sub">Stvarni utrošak iz SEF nabavki i popisa, naspram prodaje iz ESIR-a pomnožene normativima</p></div><div class="table">
+<div class="row row-var head muted small"><div>Namirnica</div><div>Po normativu</div><div>Stvarno</div><div>Odstupanje</div><div>Kalo</div><div>Iznad kala, RSD</div></div>
+<div class="row row-var">
+<div class="c-name">Šljivovica (rinfuz)</div>
+<div class="c-mono muted">20,1 l</div>
+<div class="c-mono">23,6 l</div>
+<div class="c-mono warn-tx">+17,6%</div>
+<div class="c-mono muted">1%</div>
+<div class="bar-cell"><div class="bar-track"><div class="bar-fill" style="width:100%"></div></div><span class="c-mono">4.496</span></div>
+</div><div class="row row-var">
+<div class="c-name">Kajmak mladi</div>
+<div class="c-mono muted">11,1 kg</div>
+<div class="c-mono">13,4 kg</div>
+<div class="c-mono warn-tx">+20,8%</div>
+<div class="c-mono muted">2%</div>
+<div class="bar-cell"><div class="bar-track"><div class="bar-fill" style="width:82%"></div></div><span class="c-mono">3.666</span></div>
+</div><div class="row row-var">
+<div class="c-name">Pivo točeno (keg)</div>
+<div class="c-mono muted">178,0 l</div>
+<div class="c-mono">194,8 l</div>
+<div class="c-mono warn-tx">+9,4%</div>
+<div class="c-mono muted">3%</div>
+<div class="bar-cell"><div class="bar-track"><div class="bar-fill" style="width:52%"></div></div><span class="c-mono">2.349</span></div>
+</div><div class="row row-var">
+<div class="c-name">Svinjski karmenadl b/k</div>
+<div class="c-mono muted">21,1 kg</div>
+<div class="c-mono">23,1 kg</div>
+<div class="c-mono warn-tx">+9,6%</div>
+<div class="c-mono muted">2%</div>
+<div class="bar-cell"><div class="bar-track"><div class="bar-fill" style="width:31%"></div></div><span class="c-mono">1.392</span></div>
+</div><div class="row row-var">
+<div class="c-name">Vino belo (rinfuz)</div>
+<div class="c-mono muted">47,6 l</div>
+<div class="c-mono">50,5 l</div>
+<div class="c-mono warn-tx">+6,1%</div>
+<div class="c-mono muted">1%</div>
+<div class="bar-cell"><div class="bar-track"><div class="bar-fill" style="width:26%"></div></div><span class="c-mono">1.175</span></div>
+</div><div class="row row-var">
+<div class="c-name">Mešavina za roštilj</div>
+<div class="c-mono muted">59,1 kg</div>
+<div class="c-mono">61,6 kg</div>
+<div class="c-mono warn-tx">+4,2%</div>
+<div class="c-mono muted">2%</div>
+<div class="bar-cell"><div class="bar-track"><div class="bar-fill" style="width:24%"></div></div><span class="c-mono">1.083</span></div>
+</div><div class="row row-var">
+<div class="c-name">Suncokretovo ulje</div>
+<div class="c-mono muted">22,9 l</div>
+<div class="c-mono">25,7 l</div>
+<div class="c-mono warn-tx">+12,0%</div>
+<div class="c-mono muted">3%</div>
+<div class="bar-cell"><div class="bar-track"><div class="bar-fill" style="width:11%"></div></div><span class="c-mono">491</span></div>
+</div></div></div><div class="card w-fixed"><div class="h2-wrap"><h3>Cene dobavljača</h3><p class="h2-sub">Ova nedelja naspram proseka prethodne četiri, RSD po jedinici</p></div><div class="table"><div class="drow">
+<div><div class="d-name">Kajmak mladi</div><div class="small muted">Mlekara Planina d.o.o.</div></div>
+<div class="d-right"><span class="c-mono muted">1.580 → 1.760</span><span class="chip up">+11,4%</span></div>
+</div><div class="drow">
+<div><div class="d-name">Svinjski vrat b/k</div><div class="small muted">Šumadija Meso d.o.o.</div></div>
+<div class="d-right"><span class="c-mono muted">760 → 819</span><span class="chip up">+7,8%</span></div>
+</div><div class="drow">
+<div><div class="d-name">Svinjski karmenadl b/k</div><div class="small muted">Šumadija Meso d.o.o.</div></div>
+<div class="d-right"><span class="c-mono muted">820 → 870</span><span class="chip up">+6,1%</span></div>
+</div><div class="drow">
+<div><div class="d-name">Paradajz</div><div class="small muted">Zeleni Pijac d.o.o.</div></div>
+<div class="d-right"><span class="c-mono muted">175 → 151</span><span class="chip ok">−13,5%</span></div>
+</div><div class="drow">
+<div><div class="d-name">Mešavina za roštilj</div><div class="small muted">Šumadija Meso d.o.o.</div></div>
+<div class="d-right"><span class="c-mono muted">830 → 840</span><span class="chip up">+1,2%</span></div>
+</div><div class="drow">
+<div><div class="d-name">Suncokretovo ulje</div><div class="small muted">Veleprodaja Dunav d.o.o.</div></div>
+<div class="d-right"><span class="c-mono muted">225 → 237</span><span class="chip up">+5,2%</span></div>
+</div></div></div></div>
+<div class="card "><div class="h2-row"><div class="h2-wrap"><h3>Šta uraditi ove nedelje</h3><p class="h2-sub">Rangirano po nedeljnom efektu; cena podrazumeva nepromenjenu prodaju</p></div><button class="btn">Pošalji kuhinji i šanku</button></div><div class="table"><div class="arow">
+<div class="a-num">1</div>
+<div><span class="chip ok">Cena</span></div>
+<div><div class="a-title">Ćevapi, 10 kom: 1.190 → 1.280 RSD</div><div class="small muted">Trošak namirnica 35.5% uz cilj 33%</div></div>
+<div class="a-val"><span class="c-mono">+9.600</span><span class="small muted"> RSD/ned.</span></div>
+</div><div class="arow">
+<div class="a-num">2</div>
+<div><span class="chip warn">Utrošak</span></div>
+<div><div class="a-title">Merice 0,05 na šanku i provera evidentiranja pića</div><div class="small muted">Šljivovica (rinfuz): +18% iznad normativa</div></div>
+<div class="a-val"><span class="c-mono">+4.496</span><span class="small muted"> RSD/ned.</span></div>
+</div><div class="arow">
+<div class="a-num">3</div>
+<div><span class="chip warn">Utrošak</span></div>
+<div><div class="a-title">Kutlača od 60 g za kajmak na Karađorđevoj i ćevapima</div><div class="small muted">Kajmak mladi: +21% iznad normativa</div></div>
+<div class="a-val"><span class="c-mono">+3.666</span><span class="small muted"> RSD/ned.</span></div>
+</div><div class="arow">
+<div class="a-num">4</div>
+<div><span class="chip info">Nabavka</span></div>
+<div><div class="a-title">Nova ponuda za kajmak mladi</div><div class="small muted">Mlekara Planina d.o.o.: +11.4% u odnosu na 4 nedelje</div></div>
+<div class="a-val"><span class="c-mono">+2.457</span><span class="small muted"> RSD/ned.</span></div>
+</div><div class="arow">
+<div class="a-num">5</div>
+<div><span class="chip warn">Utrošak</span></div>
+<div><div class="a-title">Čišćenje linija i provera pene na točenom pivu</div><div class="small muted">Pivo točeno (keg): +9% iznad normativa</div></div>
+<div class="a-val"><span class="c-mono">+2.349</span><span class="small muted"> RSD/ned.</span></div>
+</div></div></div></section><section class="view" id="view-fakture"><div class="view-head"><div><div class="kicker">Sistem elektronskih faktura</div><h2>SEF fakture</h2>
+<div class="muted">8 faktura · 24 stavki · svaka stavka automatski uparena sa namirnicom iz normativa</div></div>
+<div class="head-right"><span class="chip warn">2 stavke čekaju potvrdu</span><span class="chip demo">Demo podaci</span></div></div>
+<div class="fakture-grid"><div class="inv-list"><div class="small muted kicker-s">Primljeno 14–20. septembra</div><button class="inv-card " data-inv="0">
+<div class="inv-top"><span class="inv-name">Šumadija Meso d.o.o.</span><span class="chip warn">1 za potvrdu</span></div>
+<div class="inv-mid muted small"><span class="c-mono">ŠM-2026-0914-410</span><span>14.09.</span></div>
+<div class="inv-bot muted small"><span>6 stavke</span><span class="c-mono ink">120.485 RSD</span></div>
+</button><button class="inv-card on" data-inv="1">
+<div class="inv-top"><span class="inv-name">Mlekara Planina d.o.o.</span><span class="chip warn">1 za potvrdu</span></div>
+<div class="inv-mid muted small"><span class="c-mono">MP-2026-0917-447</span><span>17.09.</span></div>
+<div class="inv-bot muted small"><span>4 stavke</span><span class="c-mono ink">43.773 RSD</span></div>
+</button><button class="inv-card " data-inv="2">
+<div class="inv-top"><span class="inv-name">Zeleni Pijac d.o.o.</span><span class="chip ok">Upareno</span></div>
+<div class="inv-mid muted small"><span class="c-mono">ZP-2026-0915-484</span><span>15.09.</span></div>
+<div class="inv-bot muted small"><span>6 stavke</span><span class="c-mono ink">19.977 RSD</span></div>
+</button><button class="inv-card " data-inv="3">
+<div class="inv-top"><span class="inv-name">Veleprodaja Dunav d.o.o.</span><span class="chip ok">Upareno</span></div>
+<div class="inv-mid muted small"><span class="c-mono">VD-2026-0916-521</span><span>16.09.</span></div>
+<div class="inv-bot muted small"><span>4 stavke</span><span class="c-mono ink">10.425 RSD</span></div>
+</button><button class="inv-card " data-inv="4">
+<div class="inv-top"><span class="inv-name">Pekara Varoš d.o.o.</span><span class="chip ok">Upareno</span></div>
+<div class="inv-mid muted small"><span class="c-mono">PV-2026-0918-558</span><span>18.09.</span></div>
+<div class="inv-bot muted small"><span>1 stavka</span><span class="c-mono ink">5.208 RSD</span></div>
+</button><button class="inv-card " data-inv="5">
+<div class="inv-top"><span class="inv-name">Destilerija Brdo d.o.o.</span><span class="chip ok">Upareno</span></div>
+<div class="inv-mid muted small"><span class="c-mono">DB-2026-0919-595</span><span>19.09.</span></div>
+<div class="inv-bot muted small"><span>1 stavka</span><span class="c-mono ink">34.736 RSD</span></div>
+</button><button class="inv-card " data-inv="6">
+<div class="inv-top"><span class="inv-name">Pivo Distribucija d.o.o.</span><span class="chip ok">Upareno</span></div>
+<div class="inv-mid muted small"><span class="c-mono">PD-2026-0917-632</span><span>17.09.</span></div>
+<div class="inv-bot muted small"><span>1 stavka</span><span class="c-mono ink">41.890 RSD</span></div>
+</button><button class="inv-card " data-inv="7">
+<div class="inv-top"><span class="inv-name">Podrum Morava d.o.o.</span><span class="chip ok">Upareno</span></div>
+<div class="inv-mid muted small"><span class="c-mono">PM-2026-0915-669</span><span>15.09.</span></div>
+<div class="inv-bot muted small"><span>1 stavka</span><span class="c-mono ink">23.054 RSD</span></div>
+</button></div><div class="inv-detail">
+<div class="card">
+<div class="inv-head"><div><h3>Mlekara Planina d.o.o.</h3>
+<div class="muted small">Faktura <span class="c-mono ink">MP-2026-0917-447</span> · primljena 17.09.2026. · 43.773 RSD bez PDV-a</div>
+<div class="warn-tx small" style="font-weight:600">Rok za prihvatanje u SEF-u: 02.10.2026.</div></div>
+<div class="btn-row"><button class="btn">Odbij</button><button class="btn primary">Prihvati u SEF-u</button></div></div>
+<div class="table"><div class="row row-inv head muted small"><div>Tekst sa fakture</div><div>Upareno sa</div><div>Pouzdanost</div><div>Količina</div><div>Cena, RSD</div><div>vs. 4 nedelje</div></div><div class="row row-inv ">
+<div class="c-mono small">KAJMAK MLADI</div><div class="a-title">Kajmak mladi</div>
+<div class="conf"><div class="bar-track sm"><div class="bar-fill ok" style="width:99%"></div></div><span class="c-mono small">99%</span></div>
+<div class="c-mono small">13,64 kg</div>
+<div class="c-mono small">1.760</div>
+<div><span class="c-mono warn-tx">+11,4%</span></div>
+</div><div class="row row-inv ">
+<div class="c-mono small">KRAVLJI. SIR MEKI</div><div class="a-title">Beli sir kravlji</div>
+<div class="conf"><div class="bar-track sm"><div class="bar-fill ok" style="width:99%"></div></div><span class="c-mono small">99%</span></div>
+<div class="c-mono small">7,74 kg</div>
+<div class="c-mono small">697</div>
+<div><span class="c-mono muted">+1,0%</span></div>
+</div><div class="row row-inv ">
+<div class="c-mono small">KACKAVALJ. KRAVLJI BLOK</div><div class="a-title">Kačkavalj</div>
+<div class="conf"><div class="bar-track sm"><div class="bar-fill ok" style="width:99%"></div></div><span class="c-mono small">99%</span></div>
+<div class="c-mono small">9,13 kg</div>
+<div class="c-mono small">1.145</div>
+<div><span class="c-mono muted">+2,2%</span></div>
+</div><div class="row row-inv flag">
+<div class="c-mono small">SIR ZA PICU RENDANI 1KG</div><div><div class="a-title warn-tx">Nije u normativima</div><div class="small muted">najbliže: Beli sir kravlji</div></div>
+<div class="conf"><div class="bar-track sm"><div class="bar-fill warn" style="width:46%"></div></div><span class="c-mono small">46%</span></div>
+<div class="c-mono small">4,00 kg</div>
+<div class="c-mono small">980</div>
+<div><span class="small muted">nema istorije</span></div>
+</div><div class="pending"><div>„SIR ZA PICU RENDANI 1KG” se ne pojavljuje ni u jednom normativu. Ako ide u picu ili pohovani sir, dodajte ga kao novu namirnicu da bi utrošak bio praćen.</div>
+<div class="pending-btns"><button class="btn">Upari sa: Beli sir kravlji</button><button class="btn primary">Dodaj novu namirnicu</button></div></div></div>
+</div><div class="card "><div class="h2-wrap"><h3>Šta ova faktura menja</h3></div><p>Kajmak je +11,4% skuplji nego prethodne četiri nedelje. Ulazi u tri jela: Karađorđeva šnicla, Ćevapi, Punjena pljeskavica. Na ovonedeljnoj nabavci to je 2.457 RSD više. Normativi i trošak po porciji su već ažurirani.</p><button class="btn" data-goto="normativ">Otvori normativ Karađorđeve →</button></div></div></div></section><section class="view" id="view-normativ"><div class="view-head"><div><div class="kicker">Normativi · Glavna jela</div><h2>Karađorđeva šnicla</h2>
+<div class="muted">Poslednja izmena normativa 02.09.2026. · cene namirnica iz SEF-a, ažurirano 20.09.</div></div>
+<div class="head-right"><div class="price-block"><div class="price">1.390 RSD</div><div class="muted small">neto 1.158 RSD · cilj troška robe 33%</div></div></div></div>
+<div class="two-col"><div class="card grow"><div class="h2-wrap"><h3>Normativ i stvarno izdavanje</h3><p class="h2-sub">Po porciji · 96 porcija prodato u nedelji 38 · stvarno izdato izvedeno iz popisa i SEF nabavki</p></div><div class="table"><div class="row row-norm head muted small"><div>Namirnica</div><div>Normativ</div><div>Stvarno izdato</div><div>Cena</div><div>Po normativu</div><div>Stvarno</div></div><div class="row row-norm">
+<div class="a-title">Svinjski karmenadl b/k</div>
+<div class="c-mono small">220 g</div>
+<div class="c-mono small warn-tx">241 g <span class="muted">(+10%)</span></div>
+<div class="c-mono small muted">870/kg</div>
+<div class="c-mono small">191,4</div>
+<div class="c-mono small warn-tx">209,7</div>
+</div><div class="row row-norm">
+<div class="a-title">Kajmak mladi</div>
+<div class="c-mono small">60 g</div>
+<div class="c-mono small warn-tx">72 g <span class="muted">(+21%)</span></div>
+<div class="c-mono small muted">1.760/kg</div>
+<div class="c-mono small">105,6</div>
+<div class="c-mono small warn-tx">127,6</div>
+</div><div class="row row-norm">
+<div class="a-title">Jaja L</div>
+<div class="c-mono small">1,0 kom</div>
+<div class="c-mono small ">1,0 kom <span class="muted">(+1%)</span></div>
+<div class="c-mono small muted">17/kom</div>
+<div class="c-mono small">17,0</div>
+<div class="c-mono small ">17,2</div>
+</div><div class="row row-norm">
+<div class="a-title">Brašno T-400</div>
+<div class="c-mono small">20 g</div>
+<div class="c-mono small ">20 g <span class="muted">(+2%)</span></div>
+<div class="c-mono small muted">68/kg</div>
+<div class="c-mono small">1,4</div>
+<div class="c-mono small ">1,4</div>
+</div><div class="row row-norm">
+<div class="a-title">Prezle</div>
+<div class="c-mono small">45 g</div>
+<div class="c-mono small warn-tx">47 g <span class="muted">(+5%)</span></div>
+<div class="c-mono small muted">177/kg</div>
+<div class="c-mono small">8,0</div>
+<div class="c-mono small warn-tx">8,4</div>
+</div><div class="row row-norm">
+<div class="a-title">Suncokretovo ulje</div>
+<div class="c-mono small">90 ml</div>
+<div class="c-mono small warn-tx">101 ml <span class="muted">(+12%)</span></div>
+<div class="c-mono small muted">237/l</div>
+<div class="c-mono small">21,3</div>
+<div class="c-mono small warn-tx">23,9</div>
+</div><div class="row row-norm">
+<div class="a-title">Krompir</div>
+<div class="c-mono small">250 g</div>
+<div class="c-mono small ">259 g <span class="muted">(+4%)</span></div>
+<div class="c-mono small muted">71/kg</div>
+<div class="c-mono small">17,9</div>
+<div class="c-mono small ">18,5</div>
+</div><div class="row row-norm total"><div>Trošak porcije</div><div></div><div></div><div></div>
+<div class="c-mono">362,5 RSD</div><div class="c-mono warn-tx">406,7 RSD</div></div>
+<div class="row row-norm sub muted small"><div>Trošak robe u neto ceni</div><div></div><div></div><div></div>
+<div class="c-mono ink">31,3%</div><div class="c-mono warn-tx" style="font-weight:600">35,1%</div></div></div></div><div class="card w-fixed"><div class="h2-wrap"><h3>Trošak porcije, osam nedelja</h3><p class="h2-sub">Po normativu (crno) i stvarno izdato u nedelji 38 (crveno)</p></div><svg viewBox="0 0 560 300" class="chart-svg" role="img" aria-label="Trošak porcije po nedeljama, od 334 do 361 RSD">
+<line x1="48" x2="540" y1="264.0" y2="264.0" class="gridline"/><text x="40" y="268.0" text-anchor="end" class="axis-lbl">320</text><line x1="48" x2="540" y1="215.2" y2="215.2" class="gridline"/><text x="40" y="219.2" text-anchor="end" class="axis-lbl">340</text><line x1="48" x2="540" y1="166.4" y2="166.4" class="gridline"/><text x="40" y="170.4" text-anchor="end" class="axis-lbl">360</text><line x1="48" x2="540" y1="117.6" y2="117.6" class="gridline"/><text x="40" y="121.6" text-anchor="end" class="axis-lbl">380</text><line x1="48" x2="540" y1="68.8" y2="68.8" class="gridline"/><text x="40" y="72.8" text-anchor="end" class="axis-lbl">400</text><line x1="48" x2="540" y1="20.0" y2="20.0" class="gridline"/><text x="40" y="24.0" text-anchor="end" class="axis-lbl">420</text><line x1="48" x2="540" y1="112.1" y2="112.1" class="target-line"/>
+<text x="54" y="106.1" class="axis-lbl sans target-lbl">cilj 33% = 382 RSD</text>
+<polyline points="48.0,228.6 118.3,224.6 188.6,219.0 258.9,211.9 329.1,198.4 399.4,186.2 469.7,180.2 540.0,162.9" class="line-main"/><circle cx="48.0" cy="228.6" r="3.5" class="dot"/><circle cx="118.3" cy="224.6" r="3.5" class="dot"/><circle cx="188.6" cy="219.0" r="3.5" class="dot"/><circle cx="258.9" cy="211.9" r="3.5" class="dot"/><circle cx="329.1" cy="198.4" r="3.5" class="dot"/><circle cx="399.4" cy="186.2" r="3.5" class="dot"/><circle cx="469.7" cy="180.2" r="3.5" class="dot"/><circle cx="540.0" cy="162.9" r="3.5" class="dot"/>
+<line x1="540.0" x2="540.0" y1="162.9" y2="52.5" class="line-warn"/>
+<circle cx="540.0" cy="52.5" r="5" class="dot-warn"/>
+<text x="530.0" y="56.5" text-anchor="end" class="axis-lbl sans warn-lbl">stvarno 407</text>
+<text x="48.0" y="288" text-anchor="middle" class="axis-lbl sans">N31</text><text x="118.3" y="288" text-anchor="middle" class="axis-lbl sans">N32</text><text x="188.6" y="288" text-anchor="middle" class="axis-lbl sans">N33</text><text x="258.9" y="288" text-anchor="middle" class="axis-lbl sans">N34</text><text x="329.1" y="288" text-anchor="middle" class="axis-lbl sans">N35</text><text x="399.4" y="288" text-anchor="middle" class="axis-lbl sans">N36</text><text x="469.7" y="288" text-anchor="middle" class="axis-lbl sans">N37</text><text x="540.0" y="288" text-anchor="middle" class="axis-lbl sans">N38</text></svg><p class="small">Po normativu, porcija je poskupela +8,1% za osam nedelja, najviše zbog kajmaka i karmenadla. Stvarno izdavanje dodaje još +12,2% i gura trošak robe preko cilja.</p></div></div>
+<div class="two-col even"><div class="card ok-card"><div class="h2-wrap"><h3>Prvo porcija, pa cena</h3></div><p>Vraćanje karmenadla na 220 g i kajmaka na 60 g spušta stvarni trošak robe sa <b>35,1%</b> na <b>31,6%</b>, ispod cilja od 33%. Nova cena Karađorđeve za sada nije potrebna.</p></div><div class="card "><div class="h2-row"><div class="h2-wrap"><h3>Kartica za kuhinju</h3></div><button class="btn">Štampaj</button></div><div class="kgrid"><div class="kcard"><div class="small muted">Karmenadl</div><div class="knum">220 g</div></div><div class="kcard"><div class="small muted">Kajmak</div><div class="knum">60 g</div></div><div class="kcard"><div class="small muted">Prezle</div><div class="knum">45 g</div></div><div class="kcard"><div class="small muted">Pomfrit</div><div class="knum">250 g</div></div></div></div></div></section><section class="view" id="view-meni"><div class="view-head"><div><div class="kicker">Analiza menija · nedelja 38</div><h2>Šta meni zarađuje</h2>
+<div class="muted">Hrana i dezerti; piće se prati posebno kroz kalo na šanku</div></div><div class="head-right"><span class="chip demo">Demo podaci</span></div></div>
+<div class="two-col"><div class="card w-fixed"><div class="h2-wrap"><h3>Matrica menija</h3><p class="h2-sub">Kasavana-Smit: popularnost naspram doprinosa, cene bez PDV-a, troškovi iz ovonedeljnih SEF cena</p></div><svg viewBox="0 0 640 520" class="chart-svg" role="img" aria-label="Matrica menija: udeo u prodaji naspram doprinosa po porciji">
+<rect x="276.2" y="24" width="339.8" height="226.3" class="quad-hi"/>
+<line x1="60" x2="616" y1="468" y2="468" class="axis"/><line x1="60" x2="60" y1="24" y2="468" class="axis"/>
+<line x1="276.2" x2="276.2" y1="24" y2="468" class="qline"/><line x1="60" x2="616" y1="250.3" y2="250.3" class="qline"/>
+<text x="70" y="42" text-anchor="start" class="quad-lbl">ZAGONETKE</text><text x="606" y="42" text-anchor="end" class="quad-lbl">ZVEZDE</text><text x="70" y="458" text-anchor="start" class="quad-lbl">ZA PREISPITIVANJE</text><text x="606" y="458" text-anchor="end" class="quad-lbl">RADNI KONJI</text><text x="60.0" y="488" text-anchor="middle" class="axis-lbl">0%</text><text x="152.7" y="488" text-anchor="middle" class="axis-lbl">3%</text><text x="245.3" y="488" text-anchor="middle" class="axis-lbl">6%</text><text x="338.0" y="488" text-anchor="middle" class="axis-lbl">9%</text><text x="430.7" y="488" text-anchor="middle" class="axis-lbl">12%</text><text x="523.3" y="488" text-anchor="middle" class="axis-lbl">15%</text><text x="616.0" y="488" text-anchor="middle" class="axis-lbl">18%</text><text x="50" y="472.0" text-anchor="end" class="axis-lbl">200</text><text x="50" y="369.5" text-anchor="end" class="axis-lbl">350</text><text x="50" y="267.1" text-anchor="end" class="axis-lbl">500</text><text x="50" y="164.6" text-anchor="end" class="axis-lbl">650</text><text x="50" y="62.2" text-anchor="end" class="axis-lbl">800</text><circle cx="430.7" cy="61.0" r="7" class="pt star"/><text x="440.7" y="53.0" text-anchor="start" class="pt-lbl">Karađorđeva šnicla</text><circle cx="345.7" cy="105.9" r="7" class="pt star"/><text x="335.7" y="97.9" text-anchor="end" class="pt-lbl">Punjena pljeskavica</text><circle cx="554.2" cy="167.6" r="7" class="pt star"/><text x="544.2" y="185.6" text-anchor="end" class="pt-lbl">Ćevapi, 10 kom</text><circle cx="372.8" cy="147.1" r="7" class="pt star"/><text x="382.8" y="163.1" text-anchor="start" class="pt-lbl">Svinjski vrat</text><circle cx="280.1" cy="189.9" r="7" class="pt star"/><text x="290.1" y="193.9" text-anchor="start" class="pt-lbl">Pileći file na žaru</text><circle cx="453.8" cy="427.3" r="7" class="pt workhorse"/><text x="463.8" y="443.3" text-anchor="start" class="pt-lbl">Teleća čorba</text><circle cx="515.6" cy="392.0" r="7" class="pt workhorse"/><text x="505.6" y="382.0" text-anchor="end" class="pt-lbl">Šopska salata</text><circle cx="295.5" cy="401.4" r="7" class="pt workhorse"/><text x="305.5" y="405.4" text-anchor="start" class="pt-lbl">Srpska salata</text><circle cx="210.6" cy="245.6" r="7" class="pt puzzle"/><text x="220.6" y="249.6" text-anchor="start" class="pt-lbl">Pohovani kačkavalj</text><circle cx="229.9" cy="419.9" r="7" class="pt dog"/><text x="239.9" y="423.9" text-anchor="start" class="pt-lbl">Palačinke sa orasima</text>
+<text x="338" y="512" text-anchor="middle" class="axis-cap">Udeo u prodaji jela (prag 7,0%)</text>
+</svg></div><div class="stack"><div class="card "><div class="h2-wrap"><h3>Predlog cena</h3><p class="h2-sub">Najviše +8% u jednom koraku; efekat uz nepromenjenu prodaju</p></div><div class="reprow">
+<div><div class="a-title">Ćevapi, 10 kom</div><div class="small muted">trošak robe 35,5% → 33,0% · cilj 33%</div></div>
+<div class="rep-right"><div class="c-mono">1.190 → <b>1.280</b> RSD</div><div class="small ok-tx" style="font-weight:600">+9.600 RSD/ned.</div></div>
+</div><div class="reprow">
+<div><div class="a-title">Pohovani kačkavalj</div><div class="small muted">trošak robe 29,1% → 27,9% · cilj 28%</div></div>
+<div class="rep-right"><div class="c-mono">890 → <b>930</b> RSD</div><div class="small ok-tx" style="font-weight:600">+1.300 RSD/ned.</div></div>
+</div><div class="btn-row"><button class="btn primary">Pošalji u ESIR cenovnik</button><button class="btn">Simuliraj pad prodaje</button></div></div><div class="card "><div class="h2-wrap"><h3>Jela po ukupnom doprinosu</h3></div><div class="table"><div class="row row-menu head muted small"><div>Jelo</div><div>Kategorija</div><div>Udeo</div><div>Doprinos</div><div>Trošak</div></div><div class="row row-menu">
+<div class="a-title">Ćevapi, 10 kom</div><div><span class="chip star">Zvezda</span></div>
+<div class="c-mono small">16,0%</div><div class="c-mono small">640</div>
+<div class="c-mono small warn-tx">35,5%</div>
+</div><div class="row row-menu">
+<div class="a-title">Karađorđeva šnicla</div><div><span class="chip star">Zvezda</span></div>
+<div class="c-mono small">12,0%</div><div class="c-mono small">796</div>
+<div class="c-mono small ">31,3%</div>
+</div><div class="row row-menu">
+<div class="a-title">Svinjski vrat</div><div><span class="chip star">Zvezda</span></div>
+<div class="c-mono small">10,1%</div><div class="c-mono small">670</div>
+<div class="c-mono small ">30,1%</div>
+</div><div class="row row-menu">
+<div class="a-title">Punjena pljeskavica</div><div><span class="chip star">Zvezda</span></div>
+<div class="c-mono small">9,2%</div><div class="c-mono small">730</div>
+<div class="c-mono small ">32,1%</div>
+</div><div class="row row-menu">
+<div class="a-title">Šopska salata</div><div><span class="chip workhorse">Radni konj</span></div>
+<div class="c-mono small">14,8%</div><div class="c-mono small">311</div>
+<div class="c-mono small ">22,2%</div>
+</div><div class="row row-menu">
+<div class="a-title">Pileći file na žaru</div><div><span class="chip star">Zvezda</span></div>
+<div class="c-mono small">7,1%</div><div class="c-mono small">607</div>
+<div class="c-mono small ">26,4%</div>
+</div><div class="row row-menu">
+<div class="a-title">Teleća čorba</div><div><span class="chip workhorse">Radni konj</span></div>
+<div class="c-mono small">12,8%</div><div class="c-mono small">260</div>
+<div class="c-mono small ">25,8%</div>
+</div><div class="row row-menu">
+<div class="a-title">Pohovani kačkavalj</div><div><span class="chip puzzle">Zagonetka</span></div>
+<div class="c-mono small">4,9%</div><div class="c-mono small">526</div>
+<div class="c-mono small warn-tx">29,1%</div>
+</div><div class="row row-menu">
+<div class="a-title">Srpska salata</div><div><span class="chip workhorse">Radni konj</span></div>
+<div class="c-mono small">7,6%</div><div class="c-mono small">298</div>
+<div class="c-mono small ">15,0%</div>
+</div><div class="row row-menu">
+<div class="a-title">Palačinke sa orasima</div><div><span class="chip dog">Za preispitivanje</span></div>
+<div class="c-mono small">5,5%</div><div class="c-mono small">270</div>
+<div class="c-mono small ">22,8%</div>
+</div></div></div></div></div></section><section class="view" id="view-knjigovodja"><div class="view-head"><div><div class="kicker">Portfolio klijenata · nedelja 38</div><h2>Jedan ekran za sve SEF sandučiće</h2>
+<div class="muted">6 od 8 objekata traži pažnju ove nedelje</div></div>
+<div class="head-right"><span class="chip demo">Demo podaci</span><button class="btn primary">Prihvati sve uparene fakture</button></div></div>
+<div class="kpi-grid"><div class="kpi"><div class="kpi-label">Klijenata</div><div class="kpi-val">8</div><div class="kpi-note">restorana i kafana</div></div><div class="kpi"><div class="kpi-label">SEF faktura ove nedelje</div><div class="kpi-val">78</div><div class="kpi-note">sve automatski preuzete</div></div><div class="kpi"><div class="kpi-label">Stavki za potvrdu</div><div class="kpi-val">10</div><div class="kpi-note">ostalo upareno sa normativima</div></div><div class="kpi"><div class="kpi-label">Rok ističe za manje od 5 dana</div><div class="kpi-val">13</div><div class="kpi-note">prihvatanje ili odbijanje u SEF-u</div></div></div><div class="card "><div class="h2-wrap"><h3>Klijenti</h3><p class="h2-sub">Sortirano po hitnosti · „Hitno” znači rok u SEF-u ističe za tri ili više faktura, ili odstupanje preko 3% prometa</p></div><div class="table"><div class="row row-acc head muted small"><div>Objekat</div><div>Fakture</div><div>Za potvrdu</div><div>Rok &lt; 5 dana</div><div>Iznad kala, % prometa</div><div>Status</div><div></div></div><div class="row row-acc">
+<div class="a-title">Kafana Česma</div><div class="c-mono small">18</div>
+<div class="c-mono small muted">0</div>
+<div class="c-mono small warn-tx">3</div>
+<div class="bar-cell"><div class="bar-track sm"><div class="bar-fill warn" style="width:38%"></div></div><span class="c-mono small">1,5%</span></div>
+<div><span class="chip urgent">Hitno</span></div><div class="acc-link">Otvori</div>
+</div><div class="row row-acc">
+<div class="a-title">Konoba Obala</div><div class="c-mono small">9</div>
+<div class="c-mono small muted">0</div>
+<div class="c-mono small warn-tx">4</div>
+<div class="bar-cell"><div class="bar-track sm"><div class="bar-fill ok" style="width:27%"></div></div><span class="c-mono small">1,1%</span></div>
+<div><span class="chip urgent">Hitno</span></div><div class="acc-link">Otvori</div>
+</div><div class="row row-acc">
+<div class="a-title">Roštilj Kod Mosta</div><div class="c-mono small">7</div>
+<div class="c-mono small warn-tx">2</div>
+<div class="c-mono small ">1</div>
+<div class="bar-cell"><div class="bar-track sm"><div class="bar-fill warn" style="width:63%"></div></div><span class="c-mono small">2,5%</span></div>
+<div><span class="chip warn">Pregled</span></div><div class="acc-link">Otvori</div>
+</div><div class="row row-acc">
+<div class="a-title">Restoran Primer</div><div class="c-mono small">8</div>
+<div class="c-mono small warn-tx">2</div>
+<div class="c-mono small ">0</div>
+<div class="bar-cell"><div class="bar-track sm"><div class="bar-fill warn" style="width:45%"></div></div><span class="c-mono small">1,8%</span></div>
+<div><span class="chip warn">Pregled</span></div><div class="acc-link">Otvori</div>
+</div><div class="row row-acc">
+<div class="a-title">Hotel Sava, F&B</div><div class="c-mono small">14</div>
+<div class="c-mono small warn-tx">2</div>
+<div class="c-mono small ">1</div>
+<div class="bar-cell"><div class="bar-track sm"><div class="bar-fill ok" style="width:35%"></div></div><span class="c-mono small">1,4%</span></div>
+<div><span class="chip warn">Pregled</span></div><div class="acc-link">Otvori</div>
+</div><div class="row row-acc">
+<div class="a-title">Picerija Trg</div><div class="c-mono small">6</div>
+<div class="c-mono small warn-tx">3</div>
+<div class="c-mono small ">2</div>
+<div class="bar-cell"><div class="bar-track sm"><div class="bar-fill ok" style="width:4%"></div></div><span class="c-mono small">0,2%</span></div>
+<div><span class="chip warn">Pregled</span></div><div class="acc-link">Otvori</div>
+</div><div class="row row-acc">
+<div class="a-title">Bistro Lipa</div><div class="c-mono small">6</div>
+<div class="c-mono small warn-tx">1</div>
+<div class="c-mono small ">1</div>
+<div class="bar-cell"><div class="bar-track sm"><div class="bar-fill ok" style="width:5%"></div></div><span class="c-mono small">0,2%</span></div>
+<div><span class="chip ok">U redu</span></div><div class="acc-link">Otvori</div>
+</div><div class="row row-acc">
+<div class="a-title">Gostionica Brdo</div><div class="c-mono small">10</div>
+<div class="c-mono small muted">0</div>
+<div class="c-mono small ">1</div>
+<div class="bar-cell"><div class="bar-track sm"><div class="bar-fill ok" style="width:5%"></div></div><span class="c-mono small">0,2%</span></div>
+<div><span class="chip ok">U redu</span></div><div class="acc-link">Otvori</div>
+</div></div></div></section>
+</div>
+</div>
+</div>
+
+<div class="wrap footer" id="kontakt">
+<p><b>O ovoj stranici.</b> Svi brojevi u demou iznad su iz simuliranog restorana „Restoran Primer”, napravljenog da liči na
+prosečan beogradski roštilj sa 13 stavki na meniju. Nijedna faktura, dobavljač ili gost nisu stvarni.</p>
+<p>Normativ radi sa Sistemom elektronskih faktura (SEF) i sertifikovanim ESIR fiskalnim kasama, prema Zakonu o elektronskom
+fakturisanju i propisima o fiskalizaciji Republike Srbije.</p>
+<p>Zainteresovani za pilot sa svojim podacima? <a href="mailto:kontakt@normativ.rs">kontakt@normativ.rs</a></p>
+</div>
+
+<script>
+document.querySelectorAll('.navitem').forEach(b=>b.addEventListener('click',()=>setView(b.dataset.view)));
+document.querySelectorAll('[data-goto]').forEach(b=>b.addEventListener('click',()=>{
+  setView(b.dataset.goto); document.getElementById('demo').scrollIntoView({behavior:'smooth'});
+}));
+document.querySelectorAll('.inv-card').forEach(c=>c.addEventListener('click',()=>c.classList.add('on') && [...document.querySelectorAll('.inv-card')].forEach(o=>{if(o!==c)o.classList.remove('on')})));
+function setView(v){
+  document.querySelectorAll('.navitem').forEach(b=>b.classList.toggle('active', b.dataset.view===v));
+  document.querySelectorAll('.view').forEach(s=>s.classList.toggle('active', s.id==='view-'+v));
+}
+const root=document.documentElement;
+document.querySelectorAll('.swatch').forEach(s=>s.addEventListener('click',()=>{
+  root.style.setProperty('--accent', s.dataset.color);
+  root.style.setProperty('--accent-tint', s.dataset.tint);
+  document.querySelectorAll('.swatch').forEach(o=>o.classList.remove('active'));
+  s.classList.add('active');
+  try{ localStorage.setItem('normativ-accent', JSON.stringify({c:s.dataset.color,t:s.dataset.tint,i:s.dataset.i})); }catch(e){}
+}));
+const themeBtn=document.getElementById('themeToggle');
+function applyTheme(t){ if(t) root.setAttribute('data-theme', t); else root.removeAttribute('data-theme'); }
+try{
+  const savedT=localStorage.getItem('normativ-theme');
+  if(savedT) applyTheme(savedT);
+  const savedA=JSON.parse(localStorage.getItem('normativ-accent')||'null');
+  if(savedA){
+    root.style.setProperty('--accent', savedA.c); root.style.setProperty('--accent-tint', savedA.t);
+    document.querySelectorAll('.swatch').forEach(o=>o.classList.toggle('active', o.dataset.i===savedA.i));
+  }
+}catch(e){}
+themeBtn.addEventListener('click',()=>{
+  const cur=root.getAttribute('data-theme');
+  const next= cur==='dark' ? 'light' : (cur==='light' ? null : (window.matchMedia('(prefers-color-scheme: dark)').matches?'light':'dark'));
+  applyTheme(next);
+  try{ if(next) localStorage.setItem('normativ-theme', next); else localStorage.removeItem('normativ-theme'); }catch(e){}
+});
+</script>
+</body>
+</html>

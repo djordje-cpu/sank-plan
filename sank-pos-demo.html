@@ -1,0 +1,465 @@
+<!doctype html>
+<html lang="sr-Latn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Šank — brzina na podu sale</title>
+<meta name="description" content="Konobar naruči piće u jednom dodiru, gost odmah vidi koliko je sto potrošio, naplata i fiskalizacija u jednom potezu.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+:root{
+ --paper:#F3EFE6; --surf:#FFFFFF; --surf2:#FAF8F3; --line:#E3DDD0;
+ --ink:#1B201D; --ink2:#555C57; --night:#171A15; --night2:#242920;
+ --accent:#A33A1F; --accent-tint:#F6E3DB;
+ --green:#2C6446; --green-tint:#E1EEE5;
+ --ochre:#7A4F08; --ochre-tint:#F6EBD3;
+ --blue:#1F5F7A; --blue-tint:#DDEBF1;
+ --shadow:0 1px 2px rgba(27,32,29,.06), 0 8px 24px rgba(27,32,29,.08);
+}
+@media (prefers-color-scheme: dark){
+ :root:not([data-theme="light"]){
+  --paper:#131210; --surf:#1F1C17; --surf2:#191611; --line:#37332B;
+  --ink:#F3EFE6; --ink2:#B7B2A6; --night:#0C0B09; --night2:#1A1712;
+  --accent-tint:#3A241D; --green-tint:#1C2F22; --ochre-tint:#332810; --blue-tint:#17262B;
+ }
+}
+:root[data-theme="dark"]{
+ --paper:#131210; --surf:#1F1C17; --surf2:#191611; --line:#37332B;
+ --ink:#F3EFE6; --ink2:#B7B2A6; --night:#0C0B09; --night2:#1A1712;
+ --accent-tint:#3A241D; --green-tint:#1C2F22; --ochre-tint:#332810; --blue-tint:#17262B;
+}
+*{box-sizing:border-box}
+html{scroll-padding-top:80px}
+body{margin:0;font-family:'IBM Plex Sans', 'Helvetica Neue', sans-serif;color:var(--ink);background:var(--paper);
+ padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+button{font-family:'IBM Plex Sans', 'Helvetica Neue', sans-serif}
+.muted{color:var(--ink2)}
+.c-mono{font-family:'IBM Plex Mono', 'SFMono-Regular', Menlo, monospace}
+.wrap{max-width:1180px;margin:0 auto;padding:0 28px}
+
+/* top bar */
+.topbar{position:sticky;top:0;z-index:40;background:color-mix(in srgb, var(--paper) 92%, transparent);
+ backdrop-filter:blur(8px);border-bottom:1px solid var(--line);padding-top:env(safe-area-inset-top,0px)}
+.topbar-in{max-width:1180px;margin:0 auto;padding:14px 28px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.brand{display:flex;align-items:baseline;gap:10px;text-decoration:none;color:var(--ink)}
+.brand b{font-family:'Fraunces', Georgia, serif;font-size:22px;font-weight:600;letter-spacing:-.01em}
+.brand span{font-size:13px;color:var(--ink2)}
+.themebtn{border:1px solid var(--line);background:var(--surf);color:var(--ink);border-radius:8px;height:38px;width:38px;
+ display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:16px}
+
+/* hero */
+.hero{padding:60px 0 40px}
+.hero-kicker{font-size:13px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
+.hero h1{font-family:'Fraunces', Georgia, serif;font-size:clamp(30px,4.6vw,50px);line-height:1.08;font-weight:600;letter-spacing:-.02em;margin:14px 0 18px;max-width:820px}
+.hero p{font-size:17px;line-height:1.55;color:var(--ink2);max-width:660px;margin:0 0 8px}
+.hero-note{font-size:14px;color:var(--ink2);margin-top:18px;display:flex;gap:10px;align-items:flex-start}
+.hero-note b{color:var(--ink)}
+
+/* app frame */
+.appwrap{padding:8px 0 70px}
+.app-frame{background:var(--night);border-radius:18px;box-shadow:var(--shadow);overflow:hidden;
+ display:flex;flex-direction:column;min-height:720px}
+.appbar{display:flex;align-items:center;justify-content:space-between;padding:16px 22px;color:#fff;flex-wrap:wrap;gap:10px}
+.appbar-left{display:flex;align-items:center;gap:14px}
+.appbar b{font-family:'Fraunces', Georgia, serif;font-size:18px}
+.crumb{font-size:13px;color:#B7B2A6}
+.crumb b{color:#fff}
+.backbtn{background:transparent;border:1px solid #4A5148;color:#E7E2D6;border-radius:8px;height:36px;padding:0 14px;
+ font-size:13px;font-weight:500;cursor:pointer;display:none}
+.backbtn.show{display:inline-flex;align-items:center;gap:6px}
+.clock{font-family:'IBM Plex Mono', 'SFMono-Regular', Menlo, monospace;font-size:13px;color:#B7B2A6}
+
+.stage{background:var(--paper);flex-grow:1;padding:24px 26px 30px;display:flex;flex-direction:column;gap:18px;min-width:0}
+.screen{display:none}
+.screen.active{display:block}
+
+/* FLOOR */
+.floor-legend{display:flex;gap:18px;flex-wrap:wrap;font-size:13px;color:var(--ink2);margin-bottom:2px}
+.legend-dot{width:9px;height:9px;border-radius:5px;display:inline-block;margin-right:6px;vertical-align:middle}
+.floor-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(168px,1fr));gap:14px}
+.tcard{background:var(--surf);border:2px solid var(--line);border-radius:14px;padding:16px;text-align:left;
+ cursor:pointer;display:flex;flex-direction:column;gap:10px;min-height:132px;position:relative;transition:transform .08s}
+.tcard:active{transform:scale(.98)}
+.tcard.occupied{border-color:var(--accent)}
+.tcard.long{background:var(--accent-tint)}
+.tcard.empty{opacity:.72}
+.tcard-top{display:flex;justify-content:space-between;align-items:flex-start}
+.tcard-num{font-family:'Fraunces', Georgia, serif;font-size:24px;font-weight:600}
+.tcard-cap{font-size:12px;color:var(--ink2)}
+.tcard-total{font-family:'Fraunces', Georgia, serif;font-size:22px;font-weight:600;margin-top:auto}
+.tcard-total.zero{color:var(--ink2);font-size:15px;font-weight:500}
+.tcard-time{font-size:12px;color:var(--ink2)}
+.tcard-time.warn{color:var(--accent);font-weight:600}
+.newtable-hint{font-size:12px;color:var(--ink2);font-weight:500}
+
+/* ORDER */
+.order-layout{display:flex;gap:18px;align-items:flex-start;flex-wrap:wrap}
+.order-main{flex:2 1 420px;min-width:0;display:flex;flex-direction:column;gap:14px}
+.cattabs{display:flex;gap:8px;overflow-x:auto;padding-bottom:2px}
+.cattab{flex-shrink:0;height:40px;padding:0 16px;border-radius:20px;border:1px solid var(--line);background:var(--surf);
+ color:var(--ink2);font-size:14px;font-weight:600;cursor:pointer}
+.cattab.active{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.itemgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px}
+.itembtn{background:var(--surf);border:1px solid var(--line);border-radius:12px;padding:14px;min-height:96px;
+ cursor:pointer;display:flex;flex-direction:column;justify-content:space-between;gap:8px;text-align:left;position:relative;transition:transform .06s}
+.itembtn:active{transform:scale(.96);background:var(--accent-tint);border-color:var(--accent)}
+.item-ic{font-size:22px}
+.item-name{font-size:14px;font-weight:600;line-height:1.25}
+.item-price{font-size:13px;color:var(--ink2);font-family:'IBM Plex Mono', 'SFMono-Regular', Menlo, monospace}
+.item-badge{position:absolute;top:8px;right:8px;background:var(--accent);color:#fff;border-radius:11px;min-width:22px;height:22px;
+ font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;padding:0 5px}
+.tap-hint{font-size:12px;color:var(--ink2);text-align:center;padding-top:4px}
+
+.tab-panel{flex:1 1 300px;min-width:280px;background:var(--surf);border:1px solid var(--line);border-radius:14px;
+ padding:18px;display:flex;flex-direction:column;gap:12px;position:sticky;top:96px}
+.tab-head{display:flex;justify-content:space-between;align-items:baseline}
+.tab-head h4{margin:0;font-family:'Fraunces', Georgia, serif;font-size:18px;font-weight:600}
+.tab-lines{display:flex;flex-direction:column;max-height:320px;overflow-y:auto}
+.tline{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:9px 0;border-top:1px solid var(--line);font-size:14px}
+.tline:first-child{border-top:none}
+.tline-name{font-weight:500}
+.tline-qty{display:flex;align-items:center;gap:6px}
+.qbtn{width:26px;height:26px;border-radius:6px;border:1px solid var(--line);background:var(--surf2);cursor:pointer;font-size:15px;
+ display:flex;align-items:center;justify-content:center;color:var(--ink)}
+.tline-sum{font-family:'IBM Plex Mono', 'SFMono-Regular', Menlo, monospace;width:64px;text-align:right}
+.tab-empty{font-size:14px;color:var(--ink2);padding:14px 0}
+.tab-total-row{display:flex;justify-content:space-between;align-items:baseline;padding-top:10px;border-top:2px solid var(--ink)}
+.tab-total-num{font-family:'Fraunces', Georgia, serif;font-size:26px;font-weight:600}
+.checkoutbtn{height:48px;border-radius:10px;background:var(--accent);color:#fff;border:none;font-size:15px;font-weight:700;cursor:pointer}
+.checkoutbtn:disabled{background:var(--line);color:var(--ink2);cursor:not-allowed}
+
+/* BILL */
+.bill-layout{display:flex;gap:18px;flex-wrap:wrap}
+.bill-card{flex:1 1 360px;background:var(--surf);border:1px solid var(--line);border-radius:14px;padding:22px;display:flex;flex-direction:column;gap:10px}
+.bill-line{display:flex;justify-content:space-between;font-size:14px;padding:7px 0;border-top:1px solid var(--line)}
+.bill-line:first-child{border-top:none}
+.bill-sub{display:flex;justify-content:space-between;padding-top:12px;border-top:2px solid var(--ink);font-weight:600}
+.split-card{flex:1 1 300px;background:var(--surf);border:1px solid var(--line);border-radius:14px;padding:22px;display:flex;flex-direction:column;gap:14px}
+.split-row{display:flex;justify-content:space-between;align-items:center}
+.stepper{display:flex;align-items:center;gap:10px}
+.stepper button{width:34px;height:34px;border-radius:8px;border:1px solid var(--line);background:var(--surf2);font-size:17px;cursor:pointer}
+.stepper span{font-family:'IBM Plex Mono', 'SFMono-Regular', Menlo, monospace;font-size:16px;min-width:20px;text-align:center}
+.tipbtns{display:flex;gap:8px}
+.tipbtn{flex:1;height:38px;border-radius:8px;border:1px solid var(--line);background:var(--surf2);font-size:13px;font-weight:600;cursor:pointer;color:var(--ink)}
+.tipbtn.active{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.tipnote{font-size:12px;color:var(--ink2);line-height:1.5}
+.perguest{background:var(--surf2);border:1px solid var(--line);border-radius:10px;padding:14px;font-size:14px}
+.grandtotal{font-family:'Fraunces', Georgia, serif;font-size:30px;font-weight:600}
+.fiscalbtn{height:52px;border-radius:10px;background:var(--green);color:#fff;border:none;font-size:16px;font-weight:700;cursor:pointer}
+
+/* RECEIPT */
+.receipt-wrap{display:flex;justify-content:center;padding:20px 0}
+.receipt{width:100%;max-width:320px;background:var(--surf);border:1px solid var(--line);border-radius:8px;
+ padding:22px 20px;font-family:'IBM Plex Mono', 'SFMono-Regular', Menlo, monospace;font-size:13px;color:var(--ink);box-shadow:var(--shadow)}
+.receipt-center{text-align:center}
+.receipt hr{border:none;border-top:1px dashed var(--line);margin:10px 0}
+.receipt-row{display:flex;justify-content:space-between;gap:8px}
+.receipt-ok{display:flex;align-items:center;gap:8px;justify-content:center;color:var(--green);font-weight:700;margin:14px 0 4px}
+.qr-box{width:96px;height:96px;margin:14px auto 6px;background:
+ repeating-linear-gradient(0deg,var(--ink) 0 3px,transparent 3px 6px),
+ repeating-linear-gradient(90deg,var(--ink) 0 3px,transparent 3px 6px);
+ background-blend-mode:multiply;background-color:var(--surf);border:1px solid var(--line)}
+.donebtn{display:block;margin:18px auto 0;height:46px;padding:0 22px;border-radius:10px;background:var(--ink);color:var(--paper);
+ border:none;font-size:14px;font-weight:700;cursor:pointer;font-family:'IBM Plex Sans', 'Helvetica Neue', sans-serif}
+
+.footer{border-top:1px solid var(--line);padding:34px 0 calc(34px + env(safe-area-inset-bottom,0px))}
+.footer p{color:var(--ink2);font-size:13px;line-height:1.6;max-width:720px;margin:0 0 8px}
+
+@media (max-width:760px){
+ .tab-panel{position:static}
+ .wrap{padding:0 16px}
+ .stage{padding:18px 14px 24px}
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+<div class="topbar-in">
+<a class="brand" href="#top"><b>Šank</b><span>brzina na podu sale</span></a>
+<button class="themebtn" id="themeToggle" aria-label="Promeni temu">◐</button>
+</div>
+</div>
+
+<a id="top"></a>
+<div class="wrap hero">
+<div class="hero-kicker">Front-of-house, ne magacin</div>
+<h1>Pivo se naruči jednim dodirom. Sto se vidi na prvi pogled, pre nego što neko traži račun.</h1>
+<p>Većina ESIR programa u Srbiji je napravljena oko fiskalne kase, zaliha i knjigovodstva. Ono što nedostaje je pod sale:
+konobar koji za tri sekunde doda pivo i gost ili menadžer koji u svakom trenutku, bez pozivanja računa, vidi tačno
+koliko je sto potrošio. Isprobaj ispod, ovo stvarno radi u browseru.</p>
+<div class="hero-note">👉 <span><b>Ovo je pravi prototip</b>, ne slika. Klikni sto, dodaj piće, otvori naplatu — sve se računa uživo.</span></div>
+</div>
+
+<div class="wrap appwrap" id="demo">
+<div class="app-frame">
+<div class="appbar">
+<div class="appbar-left">
+<button class="backbtn" id="backbtn">← Nazad</button>
+<b>Šank</b>
+<span class="crumb" id="crumb">/ Sto <span id="crumb-table"></span> · <span id="crumb-step"></span></span>
+</div>
+<span class="clock">7 zauzetih stolova · 21.960 RSD trenutno na podu</span>
+</div>
+
+<div class="stage">
+
+<div class="screen active" id="screen-floor">
+<div class="floor-legend">
+<span><span class="legend-dot" style="background:var(--line)"></span>Slobodan sto</span>
+<span><span class="legend-dot" style="background:var(--accent)"></span>Zauzet, u toku</span>
+<span><span class="legend-dot" style="background:var(--accent-tint);border:1px solid var(--accent)"></span>Preko 45 min — proveri sto</span>
+</div>
+<div class="floor-grid" id="floor-grid"></div>
+</div>
+
+<div class="screen" id="screen-order">
+<div class="order-layout">
+<div class="order-main">
+<div class="cattabs" id="cattabs"></div>
+<div class="itemgrid" id="itemgrid"></div>
+<div class="tap-hint">Dodirni artikal da ga dodaš — svaki dodir je jedna porcija.</div>
+</div>
+<div class="tab-panel">
+<div class="tab-head"><h4>Račun uživo</h4></div>
+<div class="tab-lines" id="tab-lines"></div>
+<div class="tab-total-row"><span>Ukupno</span><span class="tab-total-num" id="tab-total">0 RSD</span></div>
+<button class="checkoutbtn" id="checkoutbtn" disabled>Naplati sto</button>
+</div>
+</div>
+</div>
+
+<div class="screen" id="screen-bill">
+<div class="bill-layout">
+<div class="bill-card">
+<h4 style="margin:0;font-family:'Fraunces', Georgia, serif;font-size:19px">Stavke</h4>
+<div id="bill-lines"></div>
+<div class="bill-sub"><span>Ukupno bez bakšiša</span><span class="c-mono" id="bill-sub-num">0 RSD</span></div>
+</div>
+<div class="split-card">
+<div class="split-row"><span>Podeli na</span>
+<div class="stepper"><button id="split-minus">−</button><span id="split-count">1</span><button id="split-plus">+</button></div></div>
+<div class="split-row"><span>Bakšiš</span><span class="c-mono" id="tip-num">—</span></div>
+<div class="tipbtns">
+<button class="tipbtn" data-tip="0">Bez</button>
+<button class="tipbtn" data-tip="10">10%</button>
+<button class="tipbtn" data-tip="15">15%</button>
+</div>
+<p class="tipnote">Bakšiš karticom se evidentira odvojeno od pazara i oporezuje se posebno; keš bakšiš ostaje van fiskalnog računa.</p>
+<div class="perguest" id="perguest-num">—</div>
+<div class="split-row"><span class="muted">Za naplatu</span><span class="grandtotal" id="grand-num">0 RSD</span></div>
+<button class="fiscalbtn" id="fiscalbtn">Fiskalizuj i naplati</button>
+</div>
+</div>
+</div>
+
+<div class="screen" id="screen-receipt">
+<div class="receipt-wrap">
+<div class="receipt">
+<div class="receipt-center"><b>RESTORAN PRIMER</b><br>Vračar, Beograd<br>PIB 000000000 · ESIR demo</div>
+<hr>
+<div class="receipt-row"><span id="receipt-table"></span><span id="receipt-time"></span></div>
+<hr>
+<div id="receipt-lines"></div>
+<hr>
+<div class="receipt-row"><span>Iznos</span><span id="receipt-sub"></span></div>
+<div class="receipt-row" id="receipt-tip-row"><span>Bakšiš</span><span id="receipt-tip"></span></div>
+<div class="receipt-row" style="font-weight:700;font-size:14px;padding-top:4px"><span>UKUPNO RSD</span><span id="receipt-total"></span></div>
+<div class="qr-box"></div>
+<div class="receipt-ok">✓ Fiskalizovano</div>
+</div>
+</div>
+<button class="donebtn" id="donebtn">Oslobodi sto</button>
+</div>
+
+</div>
+</div>
+</div>
+
+<div class="wrap footer">
+<p><b>O ovom prototipu.</b> Šank je pravi, funkcionalan demo: sve što vidiš računa se u tvom browseru, bez servera.
+Sto „Restoran Primer” i porudžbine su izmišljeni, ali svaki dodir na ekranu stvarno menja stanje — dodaj piće, otvori
+naplatu, podeli račun, fiskalizuj. Zatvaranjem stranice stanje se briše.</p>
+<p>Zamišljen kao brz sloj na podu sale, uz Normativ kao analitiku u pozadini — isti podaci, dve brzine razmišljanja.</p>
+</div>
+
+<script>
+const MENU = {"Piva": [{"icon": "🍺", "name": "Jelen točeno 0,5", "price": 330}, {"icon": "🍺", "name": "Heineken 0,33", "price": 350}, {"icon": "🍺", "name": "Guinness 0,4", "price": 480}, {"icon": "🍺", "name": "Bezalkoholno pivo 0,33", "price": 320}], "Vino": [{"icon": "🍷", "name": "Belo vino 0,2", "price": 390}, {"icon": "🍷", "name": "Crveno vino 0,2", "price": 390}, {"icon": "🍷", "name": "Rose 0,2", "price": 390}, {"icon": "🍾", "name": "Vino, flaša 0,75", "price": 2400}], "Žestina": [{"icon": "🥃", "name": "Šljivovica 0,05", "price": 280}, {"icon": "🥃", "name": "Viljamovka 0,05", "price": 320}, {"icon": "🥃", "name": "Kajsijevača 0,05", "price": 300}, {"icon": "🥃", "name": "Viski 0,05", "price": 420}], "Bezalkoholno": [{"icon": "☕", "name": "Espresso", "price": 180}, {"icon": "☕", "name": "Kapućino", "price": 220}, {"icon": "🥤", "name": "Sok 0,25", "price": 220}, {"icon": "💧", "name": "Voda 0,33", "price": 150}], "Hrana": [{"icon": "🍢", "name": "Ćevapi, 10 kom", "price": 1190}, {"icon": "🍖", "name": "Karađorđeva šnicla", "price": 1390}, {"icon": "🥗", "name": "Šopska salata", "price": 480}, {"icon": "🍟", "name": "Pomfrit", "price": 290}, {"icon": "🍗", "name": "Pileći file", "price": 990}, {"icon": "🍲", "name": "Teleća čorba", "price": 420}]};
+const seed = [{"id": 1, "cap": 2, "mins": 0, "items": []}, {"id": 2, "cap": 4, "mins": 18, "items": [{"name": "Jelen točeno 0,5", "price": 330, "qty": 4}, {"name": "Ćevapi, 10 kom", "price": 1190, "qty": 1}, {"name": "Šopska salata", "price": 480, "qty": 1}]}, {"id": 3, "cap": 2, "mins": 6, "items": [{"name": "Belo vino 0,2", "price": 390, "qty": 2}]}, {"id": 4, "cap": 6, "mins": 42, "items": [{"name": "Karađorđeva šnicla", "price": 1390, "qty": 2}, {"name": "Heineken 0,33", "price": 350, "qty": 3}, {"name": "Espresso", "price": 180, "qty": 2}, {"name": "Pomfrit", "price": 290, "qty": 1}]}, {"id": 5, "cap": 2, "mins": 0, "items": []}, {"id": 6, "cap": 4, "mins": 61, "items": [{"name": "Šljivovica 0,05", "price": 280, "qty": 6}, {"name": "Jelen točeno 0,5", "price": 330, "qty": 4}, {"name": "Ćevapi, 10 kom", "price": 1190, "qty": 2}]}, {"id": 7, "cap": 2, "mins": 3, "items": [{"name": "Espresso", "price": 180, "qty": 1}]}, {"id": 8, "cap": 4, "mins": 0, "items": []}, {"id": 9, "cap": 8, "mins": 25, "items": [{"name": "Vino, flaša 0,75", "price": 2400, "qty": 1}, {"name": "Teleća čorba", "price": 420, "qty": 4}, {"name": "Pileći file", "price": 990, "qty": 3}, {"name": "Sok 0,25", "price": 220, "qty": 2}]}, {"id": 10, "cap": 2, "mins": 9, "items": [{"name": "Jelen točeno 0,5", "price": 330, "qty": 2}]}, {"id": 11, "cap": 4, "mins": 0, "items": []}, {"id": 12, "cap": 2, "mins": 1, "items": []}];
+let tables = seed.map(t => ({...t, items: t.items.map(i=>({...i}))}));
+let current = null;      // selected table id
+let cat = Object.keys(MENU)[0];
+let split = 1, tipPct = 0;
+
+const $ = s => document.querySelector(s);
+const fmt = n => Math.round(n).toLocaleString('sr-RS');
+
+function total(t){ return t.items.reduce((s,i)=>s+i.price*i.qty,0); }
+
+function renderFloor(){
+  const el = $('#floor-grid'); el.innerHTML='';
+  tables.forEach(t=>{
+    const tot = total(t);
+    const occ = tot>0;
+    const long = t.mins>=45;
+    const div = document.createElement('button');
+    div.className = 'tcard ' + (occ?'occupied':'empty') + (long?' long':'');
+    div.innerHTML = `<div class="tcard-top"><span class="tcard-num">Sto ${t.id}</span><span class="tcard-cap">${t.cap} mesta</span></div>
+      <div class="${occ?'tcard-total':'tcard-total zero'}">${occ? fmt(tot)+' RSD' : 'Slobodan'}</div>
+      <div class="tcard-time ${long?'warn':''}">${occ? (t.mins+' min · '+t.items.reduce((s,i)=>s+i.qty,0)+' stavki') : ''}</div>`;
+    div.onclick = ()=> openTable(t.id);
+    el.appendChild(div);
+  });
+}
+
+function openTable(id){
+  current = id; cat = Object.keys(MENU)[0];
+  show('order');
+  $('#crumb-table').textContent = 'Sto '+id;
+  renderCatTabs(); renderItems(); renderTab();
+}
+
+function renderCatTabs(){
+  const el = $('#cattabs'); el.innerHTML='';
+  Object.keys(MENU).forEach(c=>{
+    const b=document.createElement('button');
+    b.className='cattab'+(c===cat?' active':'');
+    b.textContent=c;
+    b.onclick=()=>{ cat=c; renderCatTabs(); renderItems(); };
+    el.appendChild(b);
+  });
+}
+
+function qtyOf(t,name){ const l=t.items.find(i=>i.name===name); return l?l.qty:0; }
+
+function renderItems(){
+  const t = tables.find(x=>x.id===current);
+  const el = $('#itemgrid'); el.innerHTML='';
+  MENU[cat].forEach(it=>{
+    const q = qtyOf(t, it.name);
+    const b=document.createElement('button');
+    b.className='itembtn';
+    b.innerHTML = `${q>0?`<span class="item-badge">${q}</span>`:''}<span class="item-ic">${it.icon}</span>
+      <span class="item-name">${it.name}</span><span class="item-price">${fmt(it.price)} RSD</span>`;
+    b.onclick = ()=> addItem(it.name, it.price);
+    el.appendChild(b);
+  });
+}
+
+function addItem(name, price){
+  const t = tables.find(x=>x.id===current);
+  if (t.items.length===0) t.mins = 0;
+  const line = t.items.find(i=>i.name===name);
+  if (line) line.qty++; else t.items.push({name, price, qty:1});
+  renderItems(); renderTab();
+}
+function changeQty(name, d){
+  const t = tables.find(x=>x.id===current);
+  const line = t.items.find(i=>i.name===name);
+  if (!line) return;
+  line.qty += d;
+  if (line.qty<=0) t.items = t.items.filter(i=>i.name!==name);
+  renderItems(); renderTab();
+}
+
+function renderTab(){
+  const t = tables.find(x=>x.id===current);
+  const el = $('#tab-lines');
+  if (t.items.length===0){ el.innerHTML = '<div class="tab-empty">Sto je prazan. Dodirni artikal levo da počneš porudžbinu.</div>'; }
+  else {
+    el.innerHTML = t.items.map(i=>`<div class="tline">
+      <span class="tline-name">${i.name}</span>
+      <span class="tline-qty"><button class="qbtn" onclick="changeQty('${i.name.replace(/'/g,"\\'")}',-1)">−</button>
+      <span class="c-mono">${i.qty}</span>
+      <button class="qbtn" onclick="changeQty('${i.name.replace(/'/g,"\\'")}',1)">+</button></span>
+      <span class="tline-sum c-mono">${fmt(i.price*i.qty)}</span></div>`).join('');
+  }
+  const tot = total(t);
+  $('#tab-total').textContent = fmt(tot)+' RSD';
+  $('#checkoutbtn').disabled = tot===0;
+  renderFloor();
+}
+
+function openBill(){
+  const t = tables.find(x=>x.id===current);
+  if (total(t)===0) return;
+  split=1; tipPct=0;
+  show('bill');
+  $('#bill-lines').innerHTML = t.items.map(i=>`<div class="bill-line"><span>${i.qty}× ${i.name}</span><span class="c-mono">${fmt(i.price*i.qty)}</span></div>`).join('');
+  $('#bill-sub-num').textContent = fmt(total(t))+' RSD';
+  renderSplit();
+}
+
+function renderSplit(){
+  const t = tables.find(x=>x.id===current);
+  const sub = total(t);
+  const tip = Math.round(sub*tipPct/100);
+  const grand = sub+tip;
+  $('#split-count').textContent = split;
+  $('#tip-num').textContent = tip>0 ? '+'+fmt(tip)+' RSD' : '—';
+  $('#grand-num').textContent = fmt(grand)+' RSD';
+  $('#perguest-num').textContent = fmt(grand/split)+' RSD po osobi ('+split+(split===1?' gost':' gosta/gostiju')+')';
+  document.querySelectorAll('.tipbtn').forEach(b=> b.classList.toggle('active', parseInt(b.dataset.tip)===tipPct));
+}
+function setTip(p){ tipPct = (tipPct===p)?0:p; renderSplit(); }
+function setSplit(d){ split = Math.max(1, Math.min(12, split+d)); renderSplit(); }
+
+function fiscalize(){
+  const t = tables.find(x=>x.id===current);
+  const sub = total(t), tip = Math.round(sub*tipPct/100), grand = sub+tip;
+  const now = new Date();
+  const pad = n=>String(n).padStart(2,'0');
+  $('#receipt-time').textContent = pad(now.getDate())+'.'+pad(now.getMonth()+1)+'.'+now.getFullYear()+'. '+pad(now.getHours())+':'+pad(now.getMinutes());
+  $('#receipt-table').textContent = 'Sto '+current+' · '+split+' '+(split===1?'gost':'gosta/gostiju');
+  $('#receipt-lines').innerHTML = t.items.map(i=>`<div class="receipt-row"><span>${i.qty}× ${i.name.length>22? i.name.slice(0,22)+'…':i.name}</span><span>${fmt(i.price*i.qty)}</span></div>`).join('');
+  $('#receipt-sub').textContent = fmt(sub);
+  $('#receipt-tip-row').style.display = tip>0 ? 'flex':'none';
+  $('#receipt-tip').textContent = fmt(tip);
+  $('#receipt-total').textContent = fmt(grand);
+  show('receipt');
+}
+
+function closeTable(){
+  const t = tables.find(x=>x.id===current);
+  t.items = []; t.mins = 0;
+  current = null;
+  show('floor'); renderFloor();
+}
+
+function show(name){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.toggle('active', s.id==='screen-'+name));
+  $('#backbtn').classList.toggle('show', name!=='floor');
+  $('#crumb').style.display = name==='floor' ? 'none':'inline';
+  const labels = {order:'Porudžbina', bill:'Naplata', receipt:'Račun'};
+  $('#crumb-step').textContent = labels[name] || '';
+}
+
+$('#backbtn').addEventListener('click', ()=>{
+  const active = document.querySelector('.screen.active').id;
+  if (active==='screen-receipt') closeTable();
+  else if (active==='screen-bill') show('order');
+  else show('floor');
+});
+$('#checkoutbtn').addEventListener('click', openBill);
+$('#fiscalbtn').addEventListener('click', fiscalize);
+$('#donebtn').addEventListener('click', closeTable);
+$('#split-minus').addEventListener('click', ()=>setSplit(-1));
+$('#split-plus').addEventListener('click', ()=>setSplit(1));
+document.querySelectorAll('.tipbtn').forEach(b=> b.addEventListener('click', ()=>setTip(parseInt(b.dataset.tip))));
+
+const root=document.documentElement;
+const themeBtn=document.getElementById('themeToggle');
+function applyTheme(t){ if(t) root.setAttribute('data-theme', t); else root.removeAttribute('data-theme'); }
+try{ const s=localStorage.getItem('sank-theme'); if(s) applyTheme(s); }catch(e){}
+themeBtn.addEventListener('click',()=>{
+  const cur=root.getAttribute('data-theme');
+  const next = cur==='dark' ? 'light' : (cur==='light' ? null : (window.matchMedia('(prefers-color-scheme: dark)').matches?'light':'dark'));
+  applyTheme(next);
+  try{ if(next) localStorage.setItem('sank-theme', next); else localStorage.removeItem('sank-theme'); }catch(e){}
+});
+
+renderFloor(); show('floor');
+</script>
+</body>
+</html>

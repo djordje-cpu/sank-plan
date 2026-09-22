@@ -1,0 +1,10 @@
+[ ] sign at least one receipt with an L-PFR (we are not remote-trade only)
+[ ] advanced: at least one Промет-Продаја that closes an advance
+[ ] advanced: at least one Аванс-Продаја with ЕСИР време at least one day before PFR time (simulated wire transfer)
+[ ] at least one receipt with a GTIN item (visible on PU portal, optional on paper)
+[ ] a Промет-Продаја with Опционо поље купца
+[ ] if V-PFR is supported: at least one receipt signed by V-PFR
+[ ] at least one receipt with all payment methods
+[ ] at least one receipt with multiple tax labels
+[ ] a receipt repeating the decimal rounding test
+[ ] all samples with scannable QR; all documents in Serbian

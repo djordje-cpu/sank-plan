@@ -1,0 +1,19 @@
+section,answer
+1 Vrsta odobrenja,PRENOSIVO (dobavljač isporučuje obveznicima)
+1 Klasifikacija,"3 NAPREDNI: PP, PR, KP, KR, RP, RR, OP, OR, AP, AR"
+2 Dokumentacija,"brošura/sajt, korisničko uputstvo, uputstvo za instalaciju, uputstvo za konfiguraciju; sve na srpskom"
+3 Tipovi ESIR-a,"P2 softver na računaru (Hub + web), P3 aplikacija za pametni uređaj (PWA)"
+4 Instalacija,"P1 direktno u objektu (Hub), P2 klaud, P3 samoinstalacija"
+5 PFR,"P1 L-PFR (obavezno); P3 V-PFR sa sertifikat fajlom (za online kanal, faza 3)"
+6 Povezivanje,"P1 Wi-Fi (obavezno), P3 Ethernet"
+7 OS,"Android, iOS (PWA), Windows, Linux (Hub)"
+8 Ručno testiranje,dostavljamo tablet + Hub mini-PC + štampač 80 mm + rolne
+9 Zabranjene funkcije,"P1, P2, P3 potvrđeno i dokumentovano (referenca na uputstvo)"
+10 Operativne funkcije,P2 auth na startu; P4 popust; P7 sve metode + restriktivni mod; P8 podeljeno plaćanje; P10 elektronski i papirni; P11 GTIN; P12/P13 referentni broj; P14 HTTP ka L-PFR; P15 HTTPS ka V-PFR; P16 e-žurnal 30 dana
+11 Cene,"P1-P6 sve obavezno: unos artikla, količina, promena cene, zaokruživanje, GTIN, uvoz/izvoz"
+12 Poreske stope,"P1-P6: stope samo iz PFR-a, labela + stopa na računu, prikaz na zahtev"
+13 Štampanje,"P1 do 57 mm, P2 57-80 mm, P3 A4 (PDF za e-dostavu)"
+14 Štampači,P1 eksterni ESC/POS sa QR
+15 Dostavljanje,"P1 papir, P2 elektronski (e-pošta, SMS, link)"
+16 Tekstualni prikaz,P1-P14 svi elementi; P14 reklamno polje obavezno (napredni)
+17 Primeri računa,"P1-P15 svih 15 uzoraka za napredni ESIR, sa i bez ID kupca"

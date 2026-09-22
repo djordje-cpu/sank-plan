@@ -1,0 +1,37 @@
+id,case,source,automated_test
+ME-forbidden-1,No receipt without PFR data; unplug L-PFR -> issue fails,ME p.5,core.no_pfr_no_receipt
+ME-forbidden-2,16 visual checks of mandatory receipt data,ME p.6-7,receipt.mandatory_fields_*
+ME-op-auth,ESIR authenticates with PFR on startup,ME p.8,core.startup_auth
+ME-op-void,Remove items before issuing (optional),ME p.9,pos.void_line
+ME-op-discount,"Discount on item, PFR records reduced price",ME p.9,pos.discount_to_unit_price
+ME-op-payments,One receipt per payment method (all 7),ME p.10,core.payment_types_all
+ME-op-multipay,"Multiple methods on one receipt, one repeated",ME p.10-11,core.payment_split
+ME-op-gtin,GTIN sent and visible on PU portal,ME p.11,core.gtin_passthrough
+ME-op-refnum,Refund and Copy require reference number,ME p.11-12,rules.ref_required
+ME-op-refnum-pp,PP closing an AR carries AR reference,ME p.12,rules.close_advance
+ME-op-journal,List/search last 30 days of receipts,ME p.13; TU §10 P16,journal.search_30d
+ME-price-new,Create article,ME p.14,catalog.create_item
+ME-price-qty,Quantity with three decimals,ME p.14,core.qty_3_decimals
+ME-price-change,Change article price (mandatory for advanced),ME p.15,catalog.price_change
+ME-price-add,Add by name or GTIN scan,ME p.15-16,pos.add_by_gtin
+ME-price-round,"Rounding 5.1/10.267/20.143 and 0.123x9.90, 0.123x9.95",ME p.16,money.rounding_examples
+ME-tax-update,"Tax rates taken from PFR/SUF, printed with labels",ME p.17,core.tax_rates_from_pfr
+ME-tax-show,Show active tax rates on command,ME p.18,admin.show_tax_rates
+ME-tax-only-pfr,Reject unknown tax label,ME p.18-19,rules.unknown_label_rejected
+ME-edelivery,Electronic delivery of receipt (email/SMS) with hyperlink,ME p.20,core.electronic_receipt
+ME-samples-1..15,15 sample receipts for advanced ESIR incl. buyer ID variants,ME p.22-36; TU §17,samples.generate_all
+ML-api-status,GET /api/v3/status codes with/without card and PIN,"ML TEST3,5,7,8",pfr_client.status_matrix
+ML-api-pin,POST /api/v3/pin 0100/2100/1300,"ML TEST5,7,8",pfr_client.pin
+ML-api-attention,GET /api/v3/attention 200,ML TEST4,pfr_client.attention
+ML-api-invoice,POST /api/v3/invoices body + response fields,ML TEST6,pfr_client.create_invoice
+ML-api-last,GET last signed invoice by request id,ML p.13,pfr_client.get_last
+ML-limits,BE limit reached: second invoice blocked until proof of audit,ML p.5-7,hub.audit_limit_ux
+ML-offline,Local audit export via USB/SD when offline,ML p.7-12,hub.local_audit_docs
+TU-9.1,Advance chain AP->AP->AR->PP with 10..13: Аванс items,TU §9.1,rules.advance_chain
+TU-9.3,Cancel wrong invoice with own PIB as buyerId,TU §9.3,rules.cancel_wrong
+TU-9.4,Corporate card 50: with Voucher; monthly storno 60:,TU §9.4,rules.corporate_card
+TU-9.5,Single-purpose voucher 20..22:,TU §9.5,rules.spv
+TU-9.7,Free-of-charge supply 00: with Other payment,TU §9.7,rules.free_supply
+TU-9.8,Buyer ID and cost-center codebooks,TU §9.8,rules.codebooks
+TU-10-P7,Restricted payment mode (Card/Check/IPS entered as Cash),TU §10 P7,rules.restricted_mode
+TU-16,Receipt layout P1-P14 incl. advert field,TU 7.4.2 §16,receipt.layout_*
