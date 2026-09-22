@@ -1,0 +1,9 @@
+node_modules/
+dist/
+coverage/
+pnpm-lock.yaml
+design/prototypes/
+docs/certification/
+docs/PLAN.md
+*.pdf
+*.csv

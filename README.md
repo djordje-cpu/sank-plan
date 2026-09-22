@@ -1,3 +1,14 @@
-# Architecture Decision Records
+# Šank
 
-One file per decision, numbered: `0001-lpfr-partner-first.md`. Format: Context, Decision, Consequences, Source (cite TV/TU/ME/ML pages when regulatory). Any change to `packages/fiscal-core` needs an ADR here before the PR.
+Front-of-house-first restaurant platform for Serbia. Start with `CLAUDE.md`, then
+`docs/PLAN.md`. Regulatory contract in `docs/certification/`. Prototypes in
+`design/prototypes/` are reference only.
+
+## Develop
+
+```
+pnpm install
+pnpm check            # lint + format + typecheck + test + build
+```
+
+See `CLAUDE.md` → Commands for per-app dev servers.

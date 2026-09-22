@@ -145,6 +145,36 @@ Astro, sr-Latn primarno, en sekundarno, isti dizajn sistem kao proizvod. Stranic
 
 Svaki paket ima jasan „gotovo je kad”. Redosled je obavezan unutar faze; faze se delimično preklapaju.
 
+### Status radnih paketa
+
+Ažurira se na kraju svakog paketa (CLAUDE.md → Working style).
+
+| Paket | Status | Datum | Beleška |
+|---|---|---|---|
+| P0.1 | ✅ gotovo | 2026-09-22 | 14 radnih prostora, TS strict, ESLint 10, Prettier, CI; `pnpm check` zelen. ADR 0001. |
+| P0.2 | ⬜ nije počet | | |
+| P0.3 | ⬜ nije počet | | |
+| P0.4 | ⬜ nije počet | | |
+| P0.5 | ⬜ nije počet | | |
+| P1.1 | ⬜ nije počet | | |
+| P1.2 | ⬜ nije počet | | |
+| P1.3 | ⬜ nije počet | | |
+| P1.4 | ⬜ nije počet | | |
+| P1.5 | ⬜ nije počet | | |
+| P1.6 | ⬜ nije počet | | |
+| P2.1 | ⬜ nije počet | | |
+| P2.2 | ⬜ nije počet | | |
+| P2.3 | ⬜ nije počet | | |
+| P2.4 | ⬜ nije počet | | |
+| P2.5 | ⬜ nije počet | | |
+| P3.1 | ⬜ nije počet | | |
+| P3.2 | ⬜ nije počet | | |
+| P3.3 | ⬜ nije počet | | |
+| P3.4 | ⬜ nije počet | | |
+| P4.1 | ⬜ nije počet | | |
+| P4.2 | ⬜ nije počet | | |
+| P4.3 | ⬜ nije počet | | |
+
 ### Faza 0: temelj (nedelje 1 do 3)
 - P0.1 Monorepo, TypeScript strict, lint, format, CI (GitHub Actions: typecheck, test, build). Gotovo: `pnpm -r build` prolazi.
 - P0.2 `packages/ui` sa tokenima i komponentama iz prototipa (dugme, čip, kartica, tabela, stepper, tab). Gotovo: Storybook sa svim komponentama u svetloj i tamnoj temi.
